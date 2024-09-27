@@ -10,6 +10,7 @@ public class MortgageCalculator {
         double monthlyPayment;
         double monthlyRate;
         double totalInterest;
+        int loanTermInMonths;
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the principal ammount");
         principalAmount = input.nextDouble();
@@ -18,15 +19,24 @@ public class MortgageCalculator {
         System.out.println("Enter the loan term in years");
         loanTermInYears = input.nextInt();
 
+        monthlyRate = getMonthlyInterestRate(annualRate);
+        loanTermInMonths = getLoanTermInMonths(loanTermInYears);
+        monthlyPayment = getMonthlyPayment(principalAmount, loanTermInMonths, monthlyRate);
+        totalInterest = getTotalInterest( monthlyPayment,loanTermInMonths,principalAmount);
+
+        System.out.printf("Your monthly payment is $%.2f%n",monthlyPayment);
+        System.out.printf("Your total interest is $%.2f%n",totalInterest);
+
+
     }
     // get the monthly rate needed fot the calculation when given the annualRate as a percentage
-    public double getMonthlyInterestRate(double annualRate)
+    public static double getMonthlyInterestRate(double annualRate)
     {
         double rate = annualRate/100;
         return rate/12;
     }
     //gets the loan term in months need for the calculation
-    public int getLoanTermInMonths(int termInYears)
+    public static int getLoanTermInMonths(int termInYears)
     {
         return termInYears*12;
     }
@@ -35,7 +45,7 @@ public class MortgageCalculator {
         m = ( r*P*(1+r)^N )/( (1+r)^N - 1 )
 
      */
-    public double getMonthlyPayment ( double P, int N, double r)
+    public static double getMonthlyPayment ( double P, int N, double r)
     {
         double m = (r * P * Math.pow(1 + r, N)) / (Math.pow(1 + r, N) - 1);
         return m;
@@ -43,9 +53,11 @@ public class MortgageCalculator {
 
     }
     // Get total interest by subtracting principal from total paid
-    public double getTotalInterest( double monthlyPayment, int loanTermInMonths)
+    public static double getTotalInterest( double monthlyPayment, int loanTermInMonths, double Principal)
     {
-
+        double totalPaid = monthlyPayment * loanTermInMonths;
+        double totalInterest = totalPaid - Principal;
+        return totalInterest;
 
     }
 
