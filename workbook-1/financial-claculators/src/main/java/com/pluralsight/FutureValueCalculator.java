@@ -8,16 +8,27 @@ public class FutureValueCalculator {
         double annualRate;  //this is the annual rate as a percentage
         int numOfYears; //  the number of years used in the future value calculation
         double dailyRate;
-        double numOfDays;
+        int numOfDays;
+        double futureValue;
+        double totalInterest;
         String nameOfItem; // the name of the item that future value is calculated for
 
         Scanner input = new Scanner(System.in);
+        System.out.println("Enter the name of your item");
+        nameOfItem = input.nextLine();
         System.out.println("Enter the principal value of your item");
         principalValue = input.nextDouble();
         System.out.println("Enter the annual interest rate");
         annualRate = input.nextDouble();
         System.out.println("Enter the number of years");
         numOfYears = input.nextInt();
+        numOfDays = getNumberOfDays(numOfYears);
+        dailyRate = getDailyInterestRate(annualRate);
+        futureValue = getFutureValue(principalValue,dailyRate,numOfDays);
+        totalInterest = futureValue - principalValue;  // totalInterest paid obtained by subtracting principalValue from futureValue
+        System.out.printf("The future value of your %s is $%.2f and the total interest is $%.2f",nameOfItem,futureValue,totalInterest);
+
+
 
     }
     //The question said daily compounding is used so we have to get the Daily Interest Rate
@@ -29,7 +40,7 @@ public class FutureValueCalculator {
         return numOfYears*365;
     }
     // Future Value(FV) = PV*(1+i)^n where PV is principalValue, i is the interestRate and n is the number of terms
-    public double getFutureValue( double principalValue, double dailyRate, int numOfDays){
+    public static double getFutureValue( double principalValue, double dailyRate, int numOfDays){
         double futureValue = principalValue*Math.pow(1+dailyRate,numOfDays);
         return futureValue;
     }
