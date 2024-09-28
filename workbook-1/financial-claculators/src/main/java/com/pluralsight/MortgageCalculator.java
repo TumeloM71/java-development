@@ -3,7 +3,7 @@ package com.pluralsight;
 import java.util.Scanner;
 
 public class MortgageCalculator {
-    //I decided to overload the main method so I could run it without having to pass args in FinanceApp
+    //I decided to overload the main method so I could run it without having to pass an args array in FinanceApp
     public static void main () {
         double principalAmount;// amount that was borrowed
         double annualRate; // annual interest rate as a percentage

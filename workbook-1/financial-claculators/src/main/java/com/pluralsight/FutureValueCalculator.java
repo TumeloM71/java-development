@@ -3,7 +3,7 @@ package com.pluralsight;
 import java.util.Scanner;
 
 public class FutureValueCalculator {
-    //I decided to overload the main method so I could run it without having to pass args in FinanceApp
+    //I decided to overload the main method so I could run it without having to pass an args array in FinanceApp
     public static void main() {
         double principalValue;
         double annualRate;  //this is the annual rate as a percentage
