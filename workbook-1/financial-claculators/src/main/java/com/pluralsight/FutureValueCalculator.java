@@ -17,11 +17,11 @@ public class FutureValueCalculator {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the name of your item");
         nameOfItem = input.nextLine();
-        System.out.println("Enter the principal value of your item");
+        System.out.println("Enter the principal value of your item as a number e.g 1000");
         principalValue = input.nextDouble();
-        System.out.println("Enter the annual interest rate");
+        System.out.println("Enter the annual interest rate as a number e.g 5.5");
         annualRate = input.nextDouble();
-        System.out.println("Enter the number of years");
+        System.out.println("Enter the number of years as a number e.g 7");
         numOfYears = input.nextInt();
         numOfDays = getNumberOfDays(numOfYears);
         dailyRate = getDailyInterestRate(annualRate);

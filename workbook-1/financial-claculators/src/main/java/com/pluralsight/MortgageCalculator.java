@@ -13,11 +13,11 @@ public class MortgageCalculator {
         double totalInterest;
         int loanTermInMonths;
         Scanner input = new Scanner(System.in);
-        System.out.println("Enter the principal ammount");
+        System.out.println("Enter the principal ammount as a number e.g 2050.99");
         principalAmount = input.nextDouble();
-        System.out.println("Enter the annual interest rate");
+        System.out.println("Enter the annual interest rate as number e.g 7.5");
         annualRate = input.nextDouble();
-        System.out.println("Enter the loan term in years");
+        System.out.println("Enter the loan term in years as a number e.g 15");
         loanTermInYears = input.nextInt();
 
         monthlyRate = getMonthlyInterestRate(annualRate);
