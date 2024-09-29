@@ -1,5 +1,7 @@
 package com.pluralsight;
 
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class FutureValueCalculator {
@@ -26,8 +28,10 @@ public class FutureValueCalculator {
         numOfDays = getNumberOfDays(numOfYears);
         dailyRate = getDailyInterestRate(annualRate);
         futureValue = getFutureValue(principalValue,dailyRate,numOfDays);
+        //Added a NumberFormat instance to make the printed out currency more readable with the format method
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
         totalInterest = futureValue - principalValue;  // totalInterest paid obtained by subtracting principalValue from futureValue
-        System.out.printf("The future value of your %s is $%.2f and the total interest is $%.2f",nameOfItem,futureValue,totalInterest);
+        System.out.printf("The future value of your %s is %s and the total interest is %s",nameOfItem,numberFormat.format(futureValue),numberFormat.format(totalInterest));
 
 
 

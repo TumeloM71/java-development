@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class PresentValueOfAnnuityCalculator {
 
-    public static void main(String[] args) {
+    public static void main() {
         double payAmount;
         int timeInYears;
         double annualRate;
@@ -21,6 +21,7 @@ public class PresentValueOfAnnuityCalculator {
         annualRate = input.nextDouble();
         monthlyRate = getMonthlyRate(annualRate);
         presentValueOfAnnuity = getPresentValueOfAnnuity(payAmount,timeInYears,monthlyRate);
+        //Added a NumberFormat instance to make the printed out currency more readable with the format method
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
         System.out.printf("The present value of the ordinary annuity is %s",numberFormat.format(presentValueOfAnnuity));
 
@@ -41,4 +42,9 @@ public class PresentValueOfAnnuityCalculator {
         double presentValueOfAnnuity = (payAmount/monthlyRate)*(1 - 1/Math.pow(1+monthlyRate, timeInMonths));
         return presentValueOfAnnuity;
     }
+    // Overloaded main so I could call it in FinanceApp with having to pass an args array
+    public static void main(String[] args) {
+        PresentValueOfAnnuityCalculator.main();
+    }
+
 }

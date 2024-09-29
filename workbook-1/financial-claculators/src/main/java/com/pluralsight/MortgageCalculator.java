@@ -1,5 +1,7 @@
 package com.pluralsight;
 
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class MortgageCalculator {
@@ -24,9 +26,10 @@ public class MortgageCalculator {
         loanTermInMonths = getLoanTermInMonths(loanTermInYears);
         monthlyPayment = getMonthlyPayment(principalAmount, loanTermInMonths, monthlyRate);
         totalInterest = getTotalInterest( monthlyPayment,loanTermInMonths,principalAmount);
-
-        System.out.printf("Your monthly payment is $%.2f%n",monthlyPayment);
-        System.out.printf("Your total interest is $%.2f%n",totalInterest);
+        //Added a NumberFormat instance to make the printed out currency more readable with the format method
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
+        System.out.printf("Your monthly payment is %s%n",numberFormat.format(monthlyPayment));
+        System.out.printf("Your total interest is %s%n",numberFormat.format(totalInterest));
 
 
     }
