@@ -14,4 +14,5 @@ It takes in the monthly payout, expected interest rate and years to pay out from
 It then calculates and prints the present value of the annuity.
 ![Screenshot (71)](https://github.com/user-attachments/assets/f6e6fe87-0317-4993-8080-722b16329de2)
 //Erroneous input example
-![Screenshot (72)](https://github.com/user-attachments/assets/f095ec5e-467a-45fb-945f-2b500591121c)
+![Screenshot (73)](https://github.com/user-attachments/assets/07eaf2d1-7a64-4764-945d-a2205323f19a)
+
