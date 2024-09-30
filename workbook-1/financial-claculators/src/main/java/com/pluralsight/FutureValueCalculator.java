@@ -15,7 +15,7 @@ public class FutureValueCalculator {
         double futureValue;
         double totalInterest;
         String nameOfItem; // the name of the item that future value is calculated for
-
+        //Asking the user for input
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the name of your item");
         nameOfItem = input.nextLine();
@@ -25,6 +25,7 @@ public class FutureValueCalculator {
         annualRate = input.nextDouble();
         System.out.println("Enter the number of years as a number e.g 7");
         numOfYears = input.nextInt();
+        //Getting all the required variables, doing the calculation and then printing the results
         numOfDays = getNumberOfDays(numOfYears);
         dailyRate = getDailyInterestRate(annualRate);
         futureValue = getFutureValue(principalValue,dailyRate,numOfDays);

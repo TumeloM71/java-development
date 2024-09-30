@@ -14,6 +14,7 @@ public class MortgageCalculator {
         double monthlyRate;
         double totalInterest;
         int loanTermInMonths;
+        //Asking the user for input
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the principal ammount as a number e.g 2050.99");
         principalAmount = input.nextDouble();
@@ -21,7 +22,7 @@ public class MortgageCalculator {
         annualRate = input.nextDouble();
         System.out.println("Enter the loan term in years as a number e.g 15");
         loanTermInYears = input.nextInt();
-
+        //Getting all the required variables, doing the calculation and then printing the results
         monthlyRate = getMonthlyInterestRate(annualRate);
         loanTermInMonths = getLoanTermInMonths(loanTermInYears);
         monthlyPayment = getMonthlyPayment(principalAmount, loanTermInMonths, monthlyRate);

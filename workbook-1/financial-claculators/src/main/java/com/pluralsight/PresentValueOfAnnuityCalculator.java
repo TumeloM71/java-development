@@ -12,6 +12,7 @@ public class PresentValueOfAnnuityCalculator {
         double annualRate;
         double monthlyRate;
         double presentValueOfAnnuity;
+        //Asking the user for input
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the monthly payment amount as a number e.g 1000.50");
         payAmount = input.nextDouble();
@@ -19,6 +20,7 @@ public class PresentValueOfAnnuityCalculator {
         timeInYears = input.nextInt();
         System.out.println("Enter the annual interest rate as a number e.g 2.5");
         annualRate = input.nextDouble();
+        //Getting all the required variables, doing the calculation and then printing the results
         monthlyRate = getMonthlyRate(annualRate);
         presentValueOfAnnuity = getPresentValueOfAnnuity(payAmount,timeInYears,monthlyRate);
         //Added a NumberFormat instance to make the printed out currency more readable with the format method

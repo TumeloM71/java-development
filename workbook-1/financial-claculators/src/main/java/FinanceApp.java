@@ -19,7 +19,6 @@ public class FinanceApp {
             case 1:
                 MortgageCalculator.main();
                 break;
-
             case 2:
                 FutureValueCalculator.main();
                 break;
