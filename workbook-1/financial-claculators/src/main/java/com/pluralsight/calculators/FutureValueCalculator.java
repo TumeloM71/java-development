@@ -8,7 +8,7 @@ public class FutureValueCalculator {
 
     public static void calculate() {
         //Declaring the doubles
-        double principalValue, annualRate,dailyRate,futureValue,totalInterest;;
+        double principalValue, annualRate,dailyRate,futureValue,totalInterest;
 
         //Declaring the integers
         int numOfYears,numOfDays;
