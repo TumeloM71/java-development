@@ -17,14 +17,16 @@ public class FinanceApp {
         //Switch statement executes the respective application based on "option"
         switch (option){
             case 1:
-                MortgageCalculator.main();
+                MortgageCalculator.calculate();
                 break;
             case 2:
-                FutureValueCalculator.main();
+                FutureValueCalculator.calculate();
                 break;
             case 3:
-                PresentValueOfAnnuityCalculator.main();
+                PresentValueOfAnnuityCalculator.calculate();
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + option);
         }
 
     }
