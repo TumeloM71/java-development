@@ -1,6 +1,5 @@
 
 //FinanceApp ask's the user to choose 1 of 3 calculators to use.
-<img height="720" src="C:\Users\tumel\Pictures\Screenshots\Screenshot (68).png" width="1280"/>
 //Mortgage Calculator takes in thee Principal Amount, Interest rate and loan length from the user
 and prints out the monthly payment and total interest paid for the mortgage.
 //Future Value Calculator takes in the value of a deposit, the interest rate and a time period. 
