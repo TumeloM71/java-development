@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.pluralsight.calculators;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -51,8 +51,7 @@ public class FutureValueCalculator {
 
     // Future Value(FV) = PV*(1+i)^n where PV is principalValue, i is the interestRate and n is the number of terms
     public static double getFutureValue( double principalValue, double dailyRate, int numOfDays){
-        double futureValue = principalValue*Math.pow(1+dailyRate,numOfDays);
-        return futureValue;
+        return principalValue*Math.pow(1+dailyRate,numOfDays);
     }
 
 }

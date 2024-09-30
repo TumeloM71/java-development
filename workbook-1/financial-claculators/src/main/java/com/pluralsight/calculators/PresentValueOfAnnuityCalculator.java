@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.pluralsight.calculators;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -45,8 +45,7 @@ public class PresentValueOfAnnuityCalculator {
      */
     public static double getPresentValueOfAnnuity(double payAmount, int timeInYears, double monthlyRate){
         int timeInMonths = timeInYears*12;
-        double presentValueOfAnnuity = (payAmount/monthlyRate)*(1 - 1/Math.pow(1+monthlyRate, timeInMonths));
-        return presentValueOfAnnuity;
+        return (payAmount/monthlyRate)*(1 - 1/Math.pow(1+monthlyRate, timeInMonths));
     }
 
 }

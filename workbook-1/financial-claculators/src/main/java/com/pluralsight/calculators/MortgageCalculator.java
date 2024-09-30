@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.pluralsight.calculators;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -56,8 +56,7 @@ public class MortgageCalculator {
      */
     public static double getMonthlyPayment ( double P, int N, double r)
     {
-        double m = (r * P * Math.pow(1 + r, N)) / (Math.pow(1 + r, N) - 1);
-        return m;
+        return (r * P * Math.pow(1 + r, N)) / (Math.pow(1 + r, N) - 1);
 
 
     }
