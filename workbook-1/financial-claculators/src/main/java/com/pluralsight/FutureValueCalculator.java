@@ -17,9 +17,9 @@ public class FutureValueCalculator {
         String nameOfItem; // the name of the item that future value is calculated for
         //Asking the user for input
         Scanner input = new Scanner(System.in);
-        System.out.println("Enter the name of your item");
+        System.out.println("Enter the name of your deposit");
         nameOfItem = input.nextLine();
-        System.out.println("Enter the principal value of your item as a number e.g 1000");
+        System.out.println("Enter the principal value of your deposit as a number e.g 1000");
         principalValue = input.nextDouble();
         System.out.println("Enter the annual interest rate as a number e.g 5.5");
         annualRate = input.nextDouble();
@@ -32,7 +32,7 @@ public class FutureValueCalculator {
         //Added a NumberFormat instance to make the printed out currency more readable with the format method
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
         totalInterest = futureValue - principalValue;  // totalInterest paid obtained by subtracting principalValue from futureValue
-        System.out.printf("The future value of your %s is %s and the total interest is %s",nameOfItem,numberFormat.format(futureValue),numberFormat.format(totalInterest));
+        System.out.printf("The future value of %s is %s and the total interest is %s",nameOfItem,numberFormat.format(futureValue),numberFormat.format(totalInterest));
 
 
 
