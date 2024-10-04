@@ -34,6 +34,7 @@ public class TheaterReservations {
         String[] nameAsArray = name.split("\\s");
         String firstName = nameAsArray[0];
         String lastName = nameAsArray[nameAsArray.length-1];
+
         System.out.print("What date will you be coming (MM/dd/yyyy): ");
         LocalDate date = LocalDate.parse(input.nextLine().trim(),formatter);
         System.out.print("How many tickets would you like? ");
