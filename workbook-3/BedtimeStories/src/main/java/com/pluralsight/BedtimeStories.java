@@ -28,6 +28,7 @@ public class BedtimeStories {
                             line = fileInput.nextLine();
                             System.out.println(i++ +"."+line);
                         }
+                        fileInput.close();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -43,6 +44,7 @@ public class BedtimeStories {
                             line = fileInput.nextLine();
                             System.out.println(i++ +"."+line);
                         }
+                        fileInput.close();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -59,6 +61,7 @@ public class BedtimeStories {
                             line = fileInput.nextLine();
                             System.out.println(i++ +"."+line);
                         }
+                        fileInput.close();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
