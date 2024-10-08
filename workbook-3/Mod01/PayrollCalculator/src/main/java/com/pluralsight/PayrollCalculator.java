@@ -48,9 +48,8 @@ public class PayrollCalculator {
             String[] lineSplit;
             int id;
             String name;
-            double hours;
-            double payRate;
-
+            double hours,payRate;
+            
             while( (input)!=null){
                 input = bufferedReader.readLine();
                 if(input!=null) {
@@ -60,7 +59,9 @@ public class PayrollCalculator {
                     name = lineSplit[1];
                     hours = Double.parseDouble(lineSplit[2]);
                     payRate = Double.parseDouble(lineSplit[3]);
+                    
                     Employee employee = new Employee(id,name,hours,payRate);
+                    
                     System.out.printf("id:%d Name:%s    Gross pay:$%.2f\n",employee.getEmployeeId(),employee.getName(),employee.getGrossPay());
                 }
             }
