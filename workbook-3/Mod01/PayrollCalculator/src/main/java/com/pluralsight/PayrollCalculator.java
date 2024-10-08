@@ -51,7 +51,7 @@ public class PayrollCalculator {
             double hours,payRate;
             
             while( (input)!=null){
-                input = bufferedReader.readLine();
+                input = bufferedReader.readLine(); //Skipping the 1st line with the column heading
                 if(input!=null) {
                     lineSplit = input.split("\\|");
 
@@ -65,6 +65,7 @@ public class PayrollCalculator {
                     System.out.printf("id:%d Name:%s    Gross pay:$%.2f\n",employee.getEmployeeId(),employee.getName(),employee.getGrossPay());
                 }
             }
+            bufferedReader.close();
         }
         catch (Exception e){
             e.printStackTrace();
