@@ -1,5 +1,23 @@
 package com.pluralsight;
+/*
+Create a new Java application names BedtimeStories.
+Unzip the DataFiles.zip file and copy the three children's stories to your
+BedtimeStories project folder. (goldilocks.txt, hansel_and_gretel.txt
+and mary_had_a_little_lamb.txt).
+Each story text file contains a childrens bedtime story.
+For example:
+Goldilocks.txt
+Goldilocks and the Three Bears
+Once upon a time a girl named Goldilocks lived in
+a house at the edge of the woods. In those days
+curls of hair were called "locks." She was
+"Goldilocks" because golden hair ran down her head
+and shoulders.
+Prompt the user for the name of the story/file to read.
+Use a new Scanner to load and read each line of the selected story in the file.
+Print the file to the screen, but add a line number to the beginning of each line
 
+ */
 import java.io.*;
 import java.util.Scanner;
 
