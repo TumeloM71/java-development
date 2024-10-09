@@ -1,0 +1,4 @@
+2024-10-09 14:46:08 launch
+2024-10-09 14:46:15 : Java uses today
+2024-10-09 14:46:20 : ArrayList vs vector
+2024-10-09 14:46:23 exit
