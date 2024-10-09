@@ -54,7 +54,6 @@ public class SearchEngineLogger {
                }
            }
            logger.close();
-           fileWriter.close();
        }
        catch (Exception e){
            e.printStackTrace();
