@@ -29,19 +29,25 @@ public class SearchEngineLogger {
        try{
            FileWriter fileWriter = new FileWriter("log.txt");
            BufferedWriter logger = new BufferedWriter(fileWriter);
+
            DateTimeFormatter df =DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
            LocalDateTime now;
+
            Scanner input = new Scanner(System.in);
            String userInput = "";
+
            now = LocalDateTime.now();
            logger.write(now.format(df)+" launch\n");
+
            while(!userInput.equalsIgnoreCase("X")){
                System.out.print("Enter a search term (X to exit):");
                userInput = input.nextLine().trim();
+
                if (userInput.equalsIgnoreCase("X")) {
                    now = LocalDateTime.now();
                    logger.write(now.format(df)+" exit\n");
                    continue;
+
                } else{
                    now = LocalDateTime.now();
                    logger.write(now.format(df)+" : "+userInput+"\n");
