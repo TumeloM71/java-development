@@ -73,40 +73,68 @@ public class PayrollCalculator {
             System.out.print("Enter the name of the employee file to process:");
             String employeeFileName = userInput.nextLine().trim();
             System.out.print("Enter the name of the payroll file to create:");
-            String payrollFileName =userInput.nextLine().trim();
-            FileReader fileReader = new FileReader("src/main/resources/"+employeeFileName);
+            String payrollFileName = userInput.nextLine().trim();
+            FileReader fileReader = new FileReader("src/main/resources/" + employeeFileName);
             BufferedReader inputReader = new BufferedReader(fileReader);
-            String input = inputReader.readLine();
+
+            String input = inputReader.readLine(); //Skipping the 1st line with the column heading
             String[] lineSplit;
             int id;
             String name;
-            double hours,payRate;
-            FileWriter fileWriter = new FileWriter(payrollFileName,false);
+            double hours, payRate;
+
+            FileWriter fileWriter = new FileWriter(payrollFileName, false);
             BufferedWriter outputWriter = new BufferedWriter(fileWriter);
             String output;
-            if (payrollFileName.endsWith(".json")){
-                outputWriter.write("[");
-            }
-            outputWriter.write("id|name|gross pay");
-            input = inputReader.readLine(); //Skipping the 1st line with the column heading
-            while( (input)!=null){
-                input = inputReader.readLine(); //Skipping the 1st line with the column heading
-                if(input!=null) {
-                    lineSplit = input.split("\\|");
 
-                    id = Integer.parseInt(lineSplit[0]);
-                    name = lineSplit[1];
-                    hours = Double.parseDouble(lineSplit[2]);
-                    payRate = Double.parseDouble(lineSplit[3]);
-                    
-                    Employee employee = new Employee(id,name,hours,payRate);
-                    output = String.format("%d|%s|$%.2f\n",employee.getEmployeeId(),employee.getName(),employee.getGrossPay());
-              //      System.out.print(output);
-                    outputWriter.write(output);
+            if (payrollFileName.endsWith(".json")) {
+                outputWriter.write("[\n");
+                while ((input) != null) {
+                    input = inputReader.readLine();
+                    if (input != null) {
+                        lineSplit = input.split("\\|");
+
+                        id = Integer.parseInt(lineSplit[0]);
+                        name = lineSplit[1];
+                        hours = Double.parseDouble(lineSplit[2]);
+                        payRate = Double.parseDouble(lineSplit[3]);
+
+                        Employee employee = new Employee(id, name, hours, payRate);
+                        output = String.format("{ \"id\": %d, \"name\" : \"%s\", \"grossPay\" : $%.2f }\n", employee.getEmployeeId(), employee.getName(), employee.getGrossPay());
+                        System.out.print(output);
+                        outputWriter.write(output);
+                    }
                 }
+                outputWriter.write("]\n");
+             /*Had a bug where the program wasn't writing what was in the buffer unless I used flush(),
+             Seems to have been caused by me forgetting the close() method which flushes the buffer before closing it
+              */
+             //   outputWriter.flush();
+                inputReader.close();
+                outputWriter.close();
             }
+            else{
+                outputWriter.write("id|name|gross pay\n");
+                while ((input) != null) {
+                    input = inputReader.readLine();
+                    if (input != null) {
+                        lineSplit = input.split("\\|");
+
+                        id = Integer.parseInt(lineSplit[0]);
+                        name = lineSplit[1];
+                        hours = Double.parseDouble(lineSplit[2]);
+                        payRate = Double.parseDouble(lineSplit[3]);
+
+                        Employee employee = new Employee(id, name, hours, payRate);
+                        output = String.format("%d|%s|$%.2f\n", employee.getEmployeeId(), employee.getName(), employee.getGrossPay());
+                        //System.out.print(output);
+                        outputWriter.write(output);
+                    }
+                }
             inputReader.close();
             outputWriter.close();
+            }
+
         }
         catch (Exception e){
             e.printStackTrace();
