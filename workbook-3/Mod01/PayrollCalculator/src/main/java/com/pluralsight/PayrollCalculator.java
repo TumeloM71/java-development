@@ -123,7 +123,10 @@ public class PayrollCalculator {
               */
              //   outputWriter.flush();
                 inputReader.close();
+                fileReader.close();
                 outputWriter.close();
+                fileWriter.close();
+
             }
             else{
                 outputWriter.write("id|name|gross pay\n");
@@ -143,8 +146,10 @@ public class PayrollCalculator {
                         outputWriter.write(output);
                     }
                 }
-            inputReader.close();
-            outputWriter.close();
+                inputReader.close();
+                fileReader.close();
+                outputWriter.close();
+                fileWriter.close();
             }
 
         }
