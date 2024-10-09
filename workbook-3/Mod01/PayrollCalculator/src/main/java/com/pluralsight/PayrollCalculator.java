@@ -60,8 +60,8 @@ Enter the name of the file employee file to process: employees.csv
 Enter the name of the payroll file to create: payroll-sept-2023.json
 payroll-sept-2023.json
 [
-{ "id": 111, "name" : "Cameron Tay", "grossPay" : 3277.65 },
-{ "id": 222, "name" : "James Tee", "grossPay" : 2150.00 }
+ { "id": 111, "name" : "Cameron Tay", "grossPay" : 3277.65 },
+ { "id": 222, "name" : "James Tee", "grossPay" : 2150.00 }
 ]
 Commit and push your code!
 
@@ -89,6 +89,18 @@ public class PayrollCalculator {
 
             if (payrollFileName.endsWith(".json")) {
                 outputWriter.write("[\n");
+
+                input = inputReader.readLine();
+                lineSplit = input.split("\\|");
+
+                id = Integer.parseInt(lineSplit[0]);
+                name = lineSplit[1];
+                hours = Double.parseDouble(lineSplit[2]);
+                payRate = Double.parseDouble(lineSplit[3]);
+
+                Employee employee = new Employee(id, name, hours, payRate);
+                output = String.format("\t{ \"id\": %d, \"name\" : \"%s\", \"grossPay\" : %.2f }", employee.getEmployeeId(), employee.getName(), employee.getGrossPay());
+                outputWriter.write(output);
                 while ((input) != null) {
                     input = inputReader.readLine();
                     if (input != null) {
@@ -99,13 +111,13 @@ public class PayrollCalculator {
                         hours = Double.parseDouble(lineSplit[2]);
                         payRate = Double.parseDouble(lineSplit[3]);
 
-                        Employee employee = new Employee(id, name, hours, payRate);
-                        output = String.format("\t{ \"id\": %d, \"name\" : \"%s\", \"grossPay\" : %.2f }\n", employee.getEmployeeId(), employee.getName(), employee.getGrossPay());
-                        System.out.print(output);
+                        employee = new Employee(id, name, hours, payRate);
+                        output = String.format(",\n\t{ \"id\": %d, \"name\" : \"%s\", \"grossPay\" : %.2f }", employee.getEmployeeId(), employee.getName(), employee.getGrossPay());
+                    //    System.out.print(output);
                         outputWriter.write(output);
                     }
                 }
-                outputWriter.write("]\n");
+                outputWriter.write("\n]\n");
              /*Had a bug where the program wasn't writing what was in the buffer unless I used flush(),
              Seems to have been caused by me forgetting the close() method which flushes the buffer before closing it
               */
