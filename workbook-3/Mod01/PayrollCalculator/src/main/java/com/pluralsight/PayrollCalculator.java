@@ -1,8 +1,10 @@
 package com.pluralsight;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.sql.SQLOutput;
+import java.io.FileWriter;
+import java.util.Scanner;
 
 /*
 Create a new Java application named PayrollCalculator. You will read employee
@@ -38,20 +40,57 @@ and then use them to create a new Employee object
 getEmployeeId(), getName(), and getGrossPay() methods
 6. Repeat for each line in the input file
 Commit and push your code!
+
+Continue working on the PayrollCalculator program.
+Rather than displaying your payroll report to the screen, write it to a .csv file in
+the following format.
+id|name|gross pay
+111|Cameron Tay|3277.65
+222|James Tee|2150.00
+Prompt the user for the name of a file to read and process, then prompt them for
+the name of the payroll file to create.
+Enter the name of the file employee file to process: employees.csv
+Enter the name of the payroll file to create: payroll-sept-2023.csv
+When your program finishes running, open the new file in Notepad to view the
+results.
+BONUS: If the user chooses specifies a .json extension write the data as JSON
+instead of csv.
+For example:
+Enter the name of the file employee file to process: employees.csv
+Enter the name of the payroll file to create: payroll-sept-2023.json
+payroll-sept-2023.json
+[
+{ "id": 111, "name" : "Cameron Tay", "grossPay" : 3277.65 },
+{ "id": 222, "name" : "James Tee", "grossPay" : 2150.00 }
+]
+Commit and push your code!
+
  */
 public class PayrollCalculator {
     public static void main(String[] args) {
         try {
-            FileReader fileReader = new FileReader("src/main/resources/employees.csv");
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String input = bufferedReader.readLine();
+            Scanner userInput = new Scanner(System.in);
+            System.out.print("Enter the name of the employee file to process:");
+            String employeeFileName = userInput.nextLine().trim();
+            System.out.print("Enter the name of the payroll file to create:");
+            String payrollFileName =userInput.nextLine().trim();
+            FileReader fileReader = new FileReader("src/main/resources/"+employeeFileName);
+            BufferedReader inputReader = new BufferedReader(fileReader);
+            String input = inputReader.readLine();
             String[] lineSplit;
             int id;
             String name;
             double hours,payRate;
-            
+            FileWriter fileWriter = new FileWriter(payrollFileName,false);
+            BufferedWriter outputWriter = new BufferedWriter(fileWriter);
+            String output;
+            if (payrollFileName.endsWith(".json")){
+                outputWriter.write("[");
+            }
+            outputWriter.write("id|name|gross pay");
+            input = inputReader.readLine(); //Skipping the 1st line with the column heading
             while( (input)!=null){
-                input = bufferedReader.readLine(); //Skipping the 1st line with the column heading
+                input = inputReader.readLine(); //Skipping the 1st line with the column heading
                 if(input!=null) {
                     lineSplit = input.split("\\|");
 
@@ -61,11 +100,13 @@ public class PayrollCalculator {
                     payRate = Double.parseDouble(lineSplit[3]);
                     
                     Employee employee = new Employee(id,name,hours,payRate);
-                    
-                    System.out.printf("id:%d Name:%s    Gross pay:$%.2f\n",employee.getEmployeeId(),employee.getName(),employee.getGrossPay());
+                    output = String.format("%d|%s|$%.2f\n",employee.getEmployeeId(),employee.getName(),employee.getGrossPay());
+              //      System.out.print(output);
+                    outputWriter.write(output);
                 }
             }
-            bufferedReader.close();
+            inputReader.close();
+            outputWriter.close();
         }
         catch (Exception e){
             e.printStackTrace();
