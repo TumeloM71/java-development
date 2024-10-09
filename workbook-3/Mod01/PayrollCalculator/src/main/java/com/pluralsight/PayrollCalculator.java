@@ -100,7 +100,7 @@ public class PayrollCalculator {
                         payRate = Double.parseDouble(lineSplit[3]);
 
                         Employee employee = new Employee(id, name, hours, payRate);
-                        output = String.format("{ \"id\": %d, \"name\" : \"%s\", \"grossPay\" : $%.2f }\n", employee.getEmployeeId(), employee.getName(), employee.getGrossPay());
+                        output = String.format("\t{ \"id\": %d, \"name\" : \"%s\", \"grossPay\" : $%.2f }\n", employee.getEmployeeId(), employee.getName(), employee.getGrossPay());
                         System.out.print(output);
                         outputWriter.write(output);
                     }
