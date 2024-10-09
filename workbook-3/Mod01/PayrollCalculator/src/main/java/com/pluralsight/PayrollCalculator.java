@@ -74,6 +74,7 @@ public class PayrollCalculator {
             String employeeFileName = userInput.nextLine().trim();
             System.out.print("Enter the name of the payroll file to create:");
             String payrollFileName = userInput.nextLine().trim();
+
             FileReader fileReader = new FileReader("src/main/resources/" + employeeFileName);
             BufferedReader inputReader = new BufferedReader(fileReader);
 
@@ -123,9 +124,7 @@ public class PayrollCalculator {
               */
              //   outputWriter.flush();
                 inputReader.close();
-                fileReader.close();
                 outputWriter.close();
-                fileWriter.close();
 
             }
             else{
@@ -147,9 +146,7 @@ public class PayrollCalculator {
                     }
                 }
                 inputReader.close();
-                fileReader.close();
                 outputWriter.close();
-                fileWriter.close();
             }
 
         }
