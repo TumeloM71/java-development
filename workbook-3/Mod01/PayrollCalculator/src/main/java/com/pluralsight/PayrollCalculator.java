@@ -99,7 +99,7 @@ public class PayrollCalculator {
                 payRate = Double.parseDouble(lineSplit[3]);
 
                 Employee employee = new Employee(id, name, hours, payRate);
-                output = String.format("\t{ \"id\": %d, \"name\" : \"%s\", \"grossPay\" : %.2f }", employee.getEmployeeId(), employee.getName(), employee.getGrossPay());
+                output = String.format(" { \"id\": %d, \"name\" : \"%s\", \"grossPay\" : %.2f }", employee.getEmployeeId(), employee.getName(), employee.getGrossPay());
                 outputWriter.write(output);
                 while ((input) != null) {
                     input = inputReader.readLine();
@@ -112,7 +112,7 @@ public class PayrollCalculator {
                         payRate = Double.parseDouble(lineSplit[3]);
 
                         employee = new Employee(id, name, hours, payRate);
-                        output = String.format(",\n\t{ \"id\": %d, \"name\" : \"%s\", \"grossPay\" : %.2f }", employee.getEmployeeId(), employee.getName(), employee.getGrossPay());
+                        output = String.format(",\n { \"id\": %d, \"name\" : \"%s\", \"grossPay\" : %.2f }", employee.getEmployeeId(), employee.getName(), employee.getGrossPay());
                     //    System.out.print(output);
                         outputWriter.write(output);
                     }
