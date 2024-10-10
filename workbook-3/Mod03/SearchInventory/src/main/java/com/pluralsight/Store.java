@@ -10,6 +10,7 @@ public class Store {
     public static void main(String[] args) {
         ArrayList<Product> inventory = getInventory();
         Scanner input = new Scanner(System.in);
+
         while (true) {
             System.out.println("What do you want to do?\n" +
                     "1- List all products\n" +
@@ -18,6 +19,7 @@ public class Store {
                     "4- Add a new product\n" +
                     "5- Quit the application");
             System.out.print("Enter command:");
+
             int command;
             try {
                 command = input.nextInt();
@@ -69,6 +71,7 @@ public class Store {
                     }
                 } else
                     System.out.println("Invalid number");
+
             } catch (Exception e) {
                 System.out.println("Error. Wrong input");
                 input.nextLine(); //Clears invalid input from input stream to avoid an infinite loop
@@ -84,6 +87,7 @@ public class Store {
             FileReader fileReader = new FileReader("src/main/resources/inventory.csv");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String input = bufferedReader.readLine();
+
             while (input != null) {
                 String[] item = input.split("\\|");
                 Product newProduct = new Product(Integer.parseInt(item[0]), item[1], Float.parseFloat(item[2]));
