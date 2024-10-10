@@ -1,7 +1,5 @@
-2024-10-10 09:07:03 launch
-2024-10-10 09:07:10 : Java Stacks
-2024-10-10 09:07:15 : LinkedList uses
-2024-10-10 09:07:25 : Java Vector
-2024-10-10 09:07:29 : Java ArrayList
-2024-10-10 09:07:47 : Run length encoding algorithm
-2024-10-10 09:07:48 exit
+2024-10-10 09:17:24 launch
+2024-10-10 09:17:29 search : Java
+2024-10-10 09:17:31 search : C++
+2024-10-10 09:18:00 search : Run length encoding algorithm
+2024-10-10 09:18:05 exit

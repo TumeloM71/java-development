@@ -55,7 +55,7 @@ public class SearchEngineLogger {
 
             } else{
                 now = LocalDateTime.now();
-                logger.write(now.format(df)+" : "+userInput+"\n");
+                logger.write(now.format(df)+" search : "+userInput+"\n");
             }
 
             logger.close();
