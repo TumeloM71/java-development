@@ -59,56 +59,24 @@ public class Store {
             int command;
             try {
                 command = input.nextInt();
-                input.nextLine();
-                if (command > 0 && command <= 5) {
-                    switch (command) {
-                        case 1:
-                            Collections.sort(inventory, Comparator.comparing(Product::getName));
-                            for (Product p : inventory)
-                                System.out.println(p.toString());
-                            break;
-                        case 2:
-                            System.out.print("Enter the id:");
-                            int id = input.nextInt();
-                            input.nextLine();
-                            Product searchItem = null;
-                            for (Product p : inventory) {
-                                if (p.getId() == id)
-                                    searchItem = p;
-                            }
-                            if (searchItem != null)
-                                System.out.println(searchItem);
-                            else
-                                System.out.println("Not found");
-                            break;
-                        case 3:
-                            System.out.print("Enter the lower bound:");
-                            float lowerBound = input.nextFloat();
-                            System.out.print("Enter the upper bound:");
-                            float upperBound = input.nextFloat();
-                            System.out.println("Items found:");
-                            for (Product p : inventory) {
-                                if (p.getPrice() >= lowerBound && p.getPrice() <= upperBound)
-                                    System.out.println(p.toString());
-                            }
-                            break;
-                        case 4:
-                            System.out.print("Enter the product id: ");
-                            int newProductId = input.nextInt();
-                            input.nextLine();
-                            System.out.print("Enter the product name: ");
-                            String newProductName = input.nextLine().trim();
-                            System.out.print("Enter the price(e.g 59.99): ");
-                            float newProductPrice = input.nextFloat();
-                            input.nextLine();
-                            inventory.add(new Product(newProductId, newProductName, newProductPrice));
-                            break;
-                        case 5:
-                            System.exit(0);
-                    }
-                } else
-                    System.out.println("Invalid number");
 
+
+                switch (command) {
+                    case 1:
+                        listByName(inventory);
+                        break;
+                    case 2:
+                        searchById(inventory);
+                        break;
+                    case 3:
+                        searchByPriceRange(inventory);
+                        break;
+                    case 4:
+                        addProduct(inventory);
+                        break;
+                    default:
+                        System.out.println("Invalid number");
+                }
             } catch (Exception e) {
                 System.out.println("Error. Wrong input");
                 input.nextLine(); //Clears invalid input from input stream to avoid an infinite loop
@@ -137,6 +105,55 @@ public class Store {
             e.printStackTrace();
         }
         return inventory;
+    }
+
+    public static void addProduct(ArrayList<Product> inventory){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the product id: ");
+        int newProductId = input.nextInt();
+        input.nextLine();
+
+        System.out.print("Enter the product name: ");
+        String newProductName = input.nextLine().trim();
+
+        System.out.print("Enter the price(e.g 59.99): ");
+        float newProductPrice = input.nextFloat();
+        inventory.add(new Product(newProductId, newProductName, newProductPrice));
+    }
+
+    public static void searchByPriceRange(ArrayList<Product> inventory){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the lower bound:");
+        float lowerBound = input.nextFloat();
+        System.out.print("Enter the upper bound:");
+        float upperBound = input.nextFloat();
+        System.out.println("Items found:");
+        for (Product p : inventory) {
+            if (p.getPrice() >= lowerBound && p.getPrice() <= upperBound)
+                System.out.println(p.toString());
+        }
+    }
+
+    public static void searchById(ArrayList<Product> inventory){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the id:");
+        int id = input.nextInt();
+
+        Product searchItem = null;
+        for (Product p : inventory) {
+            if (p.getId() == id)
+                searchItem = p;
+        }
+        if (searchItem != null)
+            System.out.println(searchItem);
+        else
+            System.out.println("Not found");
+    }
+
+    public static void listByName(ArrayList<Product> inventory){
+        Collections.sort(inventory, Comparator.comparing(Product::getName));
+        for (Product p : inventory)
+            System.out.println(p.toString());
     }
 
 }
