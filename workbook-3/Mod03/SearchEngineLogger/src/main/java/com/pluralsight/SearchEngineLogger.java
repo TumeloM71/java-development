@@ -26,37 +26,42 @@ Enter a search term (X to exit):
  */
 public class SearchEngineLogger {
     public static void main(String[] args) {
-       try{
-           FileWriter fileWriter = new FileWriter("log.txt");
-           BufferedWriter logger = new BufferedWriter(fileWriter);
+        Scanner input = new Scanner(System.in);
+        String userInput = "";
+        inputLogger("launch");
+        while(!userInput.equalsIgnoreCase("X")){
+            System.out.print("Enter a search term (X to exit):");
+            userInput = input.nextLine().trim();
+            inputLogger(userInput);
 
-           DateTimeFormatter df =DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-           LocalDateTime now;
+        }
 
-           Scanner input = new Scanner(System.in);
-           String userInput = "";
+    }
+    public static void inputLogger (String userInput){
+        try{
+            FileWriter fileWriter = new FileWriter("log.txt",true);
+            BufferedWriter logger = new BufferedWriter(fileWriter);
 
+            DateTimeFormatter df =DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime now;
            now = LocalDateTime.now();
-           logger.write(now.format(df)+" launch\n");
+            if(userInput.equalsIgnoreCase("launch")) {
+                now = LocalDateTime.now();
+                logger.write(now.format(df) + " launch\n");
+            }
+            else if (userInput.equalsIgnoreCase("X")) {
+                now = LocalDateTime.now();
+                logger.write(now.format(df)+" exit\n");
 
-           while(!userInput.equalsIgnoreCase("X")){
-               System.out.print("Enter a search term (X to exit):");
-               userInput = input.nextLine().trim();
+            } else{
+                now = LocalDateTime.now();
+                logger.write(now.format(df)+" : "+userInput+"\n");
+            }
 
-               if (userInput.equalsIgnoreCase("X")) {
-                   now = LocalDateTime.now();
-                   logger.write(now.format(df)+" exit\n");
-                   continue;
-
-               } else{
-                   now = LocalDateTime.now();
-                   logger.write(now.format(df)+" : "+userInput+"\n");
-               }
-           }
-           logger.close();
-       }
-       catch (Exception e){
-           e.printStackTrace();
-       }
+            logger.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

@@ -1,4 +1,7 @@
-2024-10-09 14:46:08 launch
-2024-10-09 14:46:15 : Java uses today
-2024-10-09 14:46:20 : ArrayList vs vector
-2024-10-09 14:46:23 exit
+2024-10-10 09:07:03 launch
+2024-10-10 09:07:10 : Java Stacks
+2024-10-10 09:07:15 : LinkedList uses
+2024-10-10 09:07:25 : Java Vector
+2024-10-10 09:07:29 : Java ArrayList
+2024-10-10 09:07:47 : Run length encoding algorithm
+2024-10-10 09:07:48 exit
