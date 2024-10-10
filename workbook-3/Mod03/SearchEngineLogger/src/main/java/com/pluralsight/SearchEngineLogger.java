@@ -33,7 +33,6 @@ public class SearchEngineLogger {
             System.out.print("Enter a search term (X to exit):");
             userInput = input.nextLine().trim();
             inputLogger(userInput);
-
         }
 
     }
@@ -41,20 +40,16 @@ public class SearchEngineLogger {
         try{
             FileWriter fileWriter = new FileWriter("log.txt",true);
             BufferedWriter logger = new BufferedWriter(fileWriter);
-
             DateTimeFormatter df =DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            LocalDateTime now;
-           now = LocalDateTime.now();
-            if(userInput.equalsIgnoreCase("launch")) {
-                now = LocalDateTime.now();
+            LocalDateTime now = LocalDateTime.now();
+
+            if(userInput.equalsIgnoreCase("launch")) {;
                 logger.write(now.format(df) + " launch\n");
             }
             else if (userInput.equalsIgnoreCase("X")) {
-                now = LocalDateTime.now();
                 logger.write(now.format(df)+" exit\n");
 
             } else{
-                now = LocalDateTime.now();
                 logger.write(now.format(df)+" search : "+userInput+"\n");
             }
 
