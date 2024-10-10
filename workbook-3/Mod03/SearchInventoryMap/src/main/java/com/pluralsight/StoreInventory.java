@@ -23,24 +23,17 @@ public class StoreInventory {
         Scanner input = new Scanner(System.in);
         HashMap<String, Product> inventory = getInventory();
         String userInput = "";
-
         System.out.println(inventory);
 
-
-        while (!(userInput.equalsIgnoreCase("exit"))) {
+        while (true) {
             System.out.println("Enter product(s) by name separated by a |\nOr type exit to end the program:");
             userInput = input.nextLine();
+
             if (!(userInput.equalsIgnoreCase("exit"))) {
-                String[] searchItems = userInput.trim().split("\\|");
-                System.out.println(Arrays.toString(searchItems));
-                for (String name : searchItems) {
-                    if (inventory.containsKey(name))
-                        System.out.println(inventory.get(name));
-                    else
-                        System.out.println("Item not found");
-                }
-            } else
-                continue;
+                searchByName(userInput,inventory);
+            } else {
+                break;
+            }
         }
     }
     public static HashMap<String,Product> getInventory() {
@@ -63,6 +56,16 @@ public class StoreInventory {
             e.printStackTrace();
         }
         return inventory;
+    }
+
+    public static void searchByName(String userInput, HashMap<String,Product> inventory){
+        String[] searchItems = userInput.trim().split("\\|");
+        for (String name : searchItems) {
+            if (inventory.containsKey(name))
+                System.out.println(inventory.get(name));
+            else
+                System.out.println("Item not found");
+        }
     }
 
 }
