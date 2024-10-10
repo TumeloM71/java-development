@@ -5,6 +5,16 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+/*
+Create a Java application named FormatDates. The application will get the
+current date and time and display that information in the following formats
+09/05/2021
+2021-09-05
+September 5, 2021
+Sunday, Sep 5, 2021 10:02 ß display in GMT time
+CHALLENGE
+5:02 on 05-Sep-2021 ß display in your local time zone
+ */
 
 public class FormatDates {
     public static void main(String[] args) {
