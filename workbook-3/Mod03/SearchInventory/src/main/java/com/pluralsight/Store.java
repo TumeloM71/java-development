@@ -1,12 +1,16 @@
 package com.pluralsight;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Store {
     public static void main(String[] args) {
         ArrayList<Product> inventory = getInventory();
         Scanner input = new Scanner(System.in);
-        while(true) {
+        while (true) {
             System.out.println("What do you want to do?\n" +
                     "1- List all products\n" +
                     "2- Lookup a product by its id\n" +
@@ -17,6 +21,7 @@ public class Store {
             int command;
             try {
                 command = input.nextInt();
+                input.nextLine();
                 if (command > 0 && command <= 5) {
                     switch (command) {
                         case 1:
@@ -26,6 +31,7 @@ public class Store {
                         case 2:
                             System.out.print("Enter the id:");
                             int id = input.nextInt();
+                            input.nextLine();
                             Product searchItem = null;
                             for (Product p : inventory) {
                                 if (p.getId() == id)
@@ -38,9 +44,9 @@ public class Store {
                             break;
                         case 3:
                             System.out.print("Enter the lower bound:");
-                            int lowerBound = input.nextInt();
+                            float lowerBound = input.nextFloat();
                             System.out.print("Enter the upper bound:");
-                            int upperBound = input.nextInt();
+                            float upperBound = input.nextFloat();
                             System.out.println("Items found:");
                             for (Product p : inventory) {
                                 if (p.getPrice() >= lowerBound && p.getPrice() <= upperBound)
@@ -50,10 +56,12 @@ public class Store {
                         case 4:
                             System.out.print("Enter the product id: ");
                             int newProductId = input.nextInt();
+                            input.nextLine();
                             System.out.print("Enter the product name: ");
                             String newProductName = input.nextLine().trim();
-                            System.out.println("Enter the price(e.g 59.99): ");
+                            System.out.print("Enter the price(e.g 59.99): ");
                             float newProductPrice = input.nextFloat();
+                            input.nextLine();
                             inventory.add(new Product(newProductId, newProductName, newProductPrice));
                             break;
                         case 5:
@@ -68,22 +76,27 @@ public class Store {
         }
 
     }
+
     public static ArrayList<Product> getInventory() {
         ArrayList<Product> inventory = new ArrayList<Product>();
-        Product game = new Product(4300,"Elden Ring", 59.99F);
-        inventory.add(game);
-        game = new Product(2402,"Helldivers 2", 49.99F);
-        inventory.add(game);
-        game = new Product(2308,"Baldur's Gate 3", 59.99F);
-        inventory.add(game);
-        game = new Product(1601,"Dragon's Dogma: Dark Arisen", 29.99F);
-        inventory.add(game);
-        game = new Product(1808,"Monster Hunter: World", 59.99F);
-        inventory.add(game);
-        game = new Product(1912,"Red Dead Redemption 2", 59.99F);
-        inventory.add(game);
+        try {
 
+            FileReader fileReader = new FileReader("src/main/resources/inventory.csv");
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String input = bufferedReader.readLine();
+            while (input != null) {
+                String[] item = input.split("\\|");
+                Product newProduct = new Product(Integer.parseInt(item[0]), item[1], Float.parseFloat(item[2]));
+                inventory.add(newProduct);
+                input = bufferedReader.readLine();
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error");
+            e.printStackTrace();
+        }
         return inventory;
     }
+
 }
 
