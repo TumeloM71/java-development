@@ -12,38 +12,42 @@ import java.util.HashMap;
 import java.util.Scanner;
 /*
 Requirements
-• Use the provided products.csv file to load the store's product
-inventory into your application.
-• Create a Product class that stores all of the properties defined in
-the csv file
-• Customers should be able to view all products
-o They should also be able to search by Product Name,
-Price or Department
-• Customers should be able to add products to their cart
-• Customers should be able to remove products from their cart
+    • Use the provided products.csv file to load the store's product
+    inventory into your application.
+    • Create a Product class that stores all of the properties defined in
+    the csv file
+    • Customers should be able to view all products
+    o They should also be able to search by Product Name,
+    Price or Department
+    • Customers should be able to add products to their cart
+    • Customers should be able to remove products from their cart
 
 Screens
-• The Store Home Screen - The home screen should display a list
-of options that a user can choose from.
-o Display Products
-o Display Cart
-o Exit - closes out of the application
-• Display Products - Displays a list of products that your store
-sells.
-o On this screen the customer should be able to
-- Search or filter the list of products
-- Add a product to their cart
-- Go Back to the home page
-• Display Cart - This displays a list of line items that are in the
-customer's cart. It should also display the total sales amount of
-the cart.
-o The customer should be able to:
-- Check Out
-- Remove Product from the cart
-- Go Back to the home screen
-o If the customer chooses to remove a product need to prompt
-them for the product to remove
-
+    • The Store Home Screen - The home screen should display a list
+    of options that a user can choose from.
+    o Display Products
+    o Display Cart
+    o Exit - closes out of the application
+    • Display Products - Displays a list of products that your store
+    sells.
+    o On this screen the customer should be able to
+    - Search or filter the list of products
+    - Add a product to their cart
+    - Go Back to the home page
+    • Display Cart - This displays a list of line items that are in the
+    customer's cart. It should also display the total sales amount of
+    the cart.
+    o The customer should be able to:
+    - Check Out
+    - Remove Product from the cart
+    - Go Back to the home screen
+    o If the customer chooses to remove a product need to prompt
+    them for the product to remove
+    Notes:
+    Done by Tumelo, Jacob Franger and John Garcia
+    Cart, Inventory and Scanner could be made static class variables
+    so that all methods have access to them.
+    Class could be broken down into smaller classes
  */
 
 public class Store {
@@ -141,7 +145,7 @@ public class Store {
             FileReader fileReader = new FileReader("src/main/resources/products.csv");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String input ;
-            bufferedReader.readLine();
+            bufferedReader.readLine(); //Skipping the first line with the column headings
 
             while ((input = bufferedReader.readLine()) != null) {
 
@@ -175,8 +179,8 @@ public class Store {
                 System.out.println(p);
             }
         }
-
     }
+
     public static void searchByPriceRange(ArrayList<Product> inventory){
         Scanner input = new Scanner(System.in);
         System.out.print("Enter the minimum price:");
@@ -219,17 +223,22 @@ public class Store {
         }
 
     }
+
     public static String displayCart (ArrayList<Product> cart){
         StringBuilder output = new StringBuilder("Items in cart:\n");
         HashMap<Product,Integer> items = new HashMap<>();
         for( Product p : cart){
-            items.put(p, items.getOrDefault(p,0)+1);
+            items.put(p, items.getOrDefault(p,0)+1);//Frquency counting of items in the cart
         }
         for(Product p : items.keySet()){
-            output.append(p.getProductName()).append("    Amount: ").append(items.get(p)).append(String.format("   Cost: $%.2f\n",p.getPrice() * items.get(p)));
+            output.append(p.getProductName())
+                    .append("    Amount: ")
+                    .append(items.get(p))
+                    .append(String.format("   Cost: $%.2f\n",p.getPrice() * items.get(p)));
         }
         return output.toString();
     }
+
     public static void checkOut(ArrayList<Product> cart){
         Scanner input = new Scanner(System.in);
         if (!cart.isEmpty()) {
@@ -268,8 +277,8 @@ public class Store {
             }
         }
         cart.remove(itemToRemove);
-
     }
+
     public static void printReceipt(double payment, double cost, ArrayList<Product> cart){
         System.out.println("Date: "+ LocalDate.now());
         System.out.println(displayCart(cart));
