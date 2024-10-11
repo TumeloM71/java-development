@@ -1,8 +1,14 @@
 package com.pluralsight;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 /*
 Requirements
@@ -89,7 +95,7 @@ public class Store {
                      break;
 
                  case 2:
-                     displayCart(cart);
+                     System.out.println(displayCart(cart));
                      System.out.println("Select an option by typing the number:\n" +
                              "1.Checkout\n" +
                              "2.Remove from cart\n" +
@@ -205,6 +211,7 @@ public class Store {
         for (Product p : inventory){
             if( p.getProductName().equalsIgnoreCase(productName)){
                 cart.add(p);
+                System.out.println("Item added successully");
             }
         }
         if (cart.isEmpty()){
@@ -212,16 +219,41 @@ public class Store {
         }
 
     }
-    public static void displayCart (ArrayList<Product> cart){
-        System.out.println("Items in cart:");
+    public static String displayCart (ArrayList<Product> cart){
+        StringBuilder output = new StringBuilder("Items in cart:\n");
+        HashMap<Product,Integer> items = new HashMap<>();
         for( Product p : cart){
-            System.out.println(p);
+            items.put(p, items.getOrDefault(p,0)+1);
         }
+        for(Product p : items.keySet()){
+            output.append(p.getProductName()).append("    Amount: ").append(items.get(p)).append(String.format("   Cost: $%.2f\n",p.getPrice() * items.get(p)));
+        }
+        return output.toString();
     }
     public static void checkOut(ArrayList<Product> cart){
-        displayCart(cart);
-        System.out.println("Checked out successfully!");
-        cart.clear();
+        Scanner input = new Scanner(System.in);
+        if (!cart.isEmpty()) {
+            System.out.println(displayCart(cart));
+            double cost = 0;
+            for (Product p : cart) {
+                cost += p.getPrice();
+            }
+            System.out.printf("Total cost: $%.2f\n", cost);
+            System.out.print("Enter the payment amount(e.g 200): ");
+            double payment = input.nextDouble();
+            if (payment >= cost) {
+                printReceipt(payment,cost,cart);
+                System.out.println("Checked out successfully!");
+                cart.clear();
+                if (payment > cost) {
+                    System.out.printf("Your change: %.2f\n", (payment - cost));
+                }
+            } else {
+                System.out.println("Insufficient payment amount\nUnsuccessful checkout");
+            }
+        }
+        else
+            System.out.println("Nothing in the cart");
     }
 
     public static void removeFromCart (ArrayList<Product> cart){
@@ -237,6 +269,30 @@ public class Store {
         }
         cart.remove(itemToRemove);
 
+    }
+    public static void printReceipt(double payment, double cost, ArrayList<Product> cart){
+        System.out.println("Date: "+ LocalDate.now());
+        System.out.println(displayCart(cart));
+        System.out.printf("Sales total: $%.2f\n",cost);
+        System.out.printf("Amount paid: $%.2f\n",payment);
+        System.out.printf("Change given: $%.2f\n",payment-cost);
+
+        try{
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+            FileWriter fileWriter = new FileWriter("Receipts/"+now.format(df)+".txt");
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write("Date: "+ LocalDate.now()+"\n");
+            bufferedWriter.write(displayCart(cart));
+            bufferedWriter.write(String.format("Sales total: $%.2f\n",cost));
+            bufferedWriter.write(String.format("Amount paid: $%.2f\n",payment));
+            bufferedWriter.write(String.format("Change given: $%.2f\n",payment-cost));
+
+            bufferedWriter.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

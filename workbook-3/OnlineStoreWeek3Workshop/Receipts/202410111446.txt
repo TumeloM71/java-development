@@ -1,0 +1,7 @@
+Date: 2024-10-11Items in cart:
+Desktop PC Computer Intel Core i5    Amount: 1   Cost: 139.0
+Wired Backlit Keyboard    Amount: 1   Cost: 21.99
+RGB Wireless Gaming Mouse    Amount: 1   Cost: 67.45
+Sales total: $228.44
+Amount paid: $250.00
+Change given: $21.56

@@ -1,0 +1,6 @@
+Date: 2024-10-11
+Items in cart:
+USB C to A Cable    Amount: 3   Cost: 41.849999999999994
+Sales total: $41.85
+Amount paid: $50.00
+Change given: $8.15
