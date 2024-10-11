@@ -2,10 +2,43 @@ package com.pluralsight;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
+/*
+Requirements
+• Use the provided products.csv file to load the store's product
+inventory into your application.
+• Create a Product class that stores all of the properties defined in
+the csv file
+• Customers should be able to view all products
+o They should also be able to search by Product Name,
+Price or Department
+• Customers should be able to add products to their cart
+• Customers should be able to remove products from their cart
+
+Screens
+• The Store Home Screen - The home screen should display a list
+of options that a user can choose from.
+o Display Products
+o Display Cart
+o Exit - closes out of the application
+• Display Products - Displays a list of products that your store
+sells.
+o On this screen the customer should be able to
+- Search or filter the list of products
+- Add a product to their cart
+- Go Back to the home page
+• Display Cart - This displays a list of line items that are in the
+customer's cart. It should also display the total sales amount of
+the cart.
+o The customer should be able to:
+- Check Out
+- Remove Product from the cart
+- Go Back to the home screen
+o If the customer chooses to remove a product need to prompt
+them for the product to remove
+
+ */
 
 public class Store {
     public static void main(String[] args) {
@@ -136,7 +169,7 @@ public class Store {
                 System.out.println(p);
             }
         }
-    //    input.close();
+
     }
     public static void searchByPriceRange(ArrayList<Product> inventory){
         Scanner input = new Scanner(System.in);
@@ -149,7 +182,7 @@ public class Store {
             if (p.getPrice() >= lowerBound && p.getPrice() <= upperBound)
                 System.out.println(p.toString());
         }
-    //    input.close();
+
     }
 
     public static void searchByDepartment(ArrayList<Product> inventory){
@@ -162,7 +195,7 @@ public class Store {
                 System.out.println(p);
             }
         }
-    //    input.close();
+
     }
 
     public static void addToCart(ArrayList<Product> inventory, ArrayList<Product> cart){
@@ -177,7 +210,7 @@ public class Store {
         if (cart.isEmpty()){
             System.out.println("Error. Nothing added to cart.");
         }
-    //    input.close();
+
     }
     public static void displayCart (ArrayList<Product> cart){
         System.out.println("Items in cart:");
