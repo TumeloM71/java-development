@@ -1,0 +1,12 @@
+Date: 2024-10-12
+Items in cart:
+USB C to A Cable    Amount: 4   Cost: $55.80
+Wired Backlit Keyboard    Amount: 1   Cost: $21.99
+RGB Wireless Gaming Mouse    Amount: 1   Cost: $67.45
+Retro Handheld Arcade    Amount: 1   Cost: $24.45
+JBL Bluetooth Speaker    Amount: 1   Cost: $89.95
+Wireless Charger iPhone    Amount: 4   Cost: $51.96
+Desktop PC Computer Intel Core i5    Amount: 1   Cost: $139.00
+Sales total: $450.60
+Amount paid: $500.00
+Change given: $49.40

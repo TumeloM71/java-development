@@ -1,4 +1,7 @@
 package com.pluralsight;
+
+import java.util.Objects;
+
 /*
 SKU|Product Name|Price|Department
 AV1051|JBL Bluetooth Speaker|89.95|Audio Video
@@ -44,5 +47,17 @@ public class Product {
                 ", price=" + price +
                 ", department='" + department + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product product)) return false;
+        return Double.compare(getPrice(), product.getPrice()) == 0 && Objects.equals(getSKU(), product.getSKU()) && Objects.equals(getProductName(), product.getProductName()) && Objects.equals(getDepartment(), product.getDepartment());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSKU(), getProductName(), getPrice(), getDepartment());
     }
 }

@@ -1,0 +1,6 @@
+Date: 2024-10-12
+Items in cart:
+JBL Bluetooth Speaker    Amount: 2   Cost: $179.90
+Sales total: $179.90
+Amount paid: $200.00
+Change given: $20.10
