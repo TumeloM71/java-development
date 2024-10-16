@@ -14,7 +14,7 @@ the product name as the map key so that users can search for products by name.
 Test the application.
 BONUS: Write code to let the user look up more than one product. After the
 program displays the results of the search, ask the user "Do you want to search
-again?". Keep repeating the search as long as they answer yes to the questio
+again?". Keep repeating the search as long as they answer yes to the question
  */
 
 public class StoreInventory {
