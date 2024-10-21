@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class Employee {
 
     int employeeId;
@@ -5,8 +8,10 @@ public class Employee {
     String department;
     double payRate;
     int hoursWorked;
-    double clockInTime;
-    double clockOutTime;
+    double clockInTimeAsDouble;
+    double clockOutTimeAsDouble;
+    LocalDateTime clockInTime;
+    LocalDateTime clockOutTime;
 
     public Employee(int employeeId, String name, String department, double payRate, int hoursWorked) {
         this.employeeId = employeeId;
@@ -16,13 +21,21 @@ public class Employee {
         this.hoursWorked = hoursWorked;
     }
 
-    public void punchTimeCard(double time, boolean clockingIn){
-        if (clockingIn)
-            clockInTime = time;
-        else
-            clockOutTime = time;
+    public void punchIn(double time){
+        clockInTimeAsDouble = time;
     }
 
+    public void punchOut(double time){
+        clockOutTimeAsDouble = time;
+    }
+
+    public void punchIn(){
+        clockInTime = LocalDateTime.now();
+    }
+
+    public void punchOut(){
+        clockOutTime = LocalDateTime.now();
+    }
 
 
     public int getEmployeeId() {
