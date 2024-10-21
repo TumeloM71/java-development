@@ -6,7 +6,7 @@ public class Reservation {
     private double price; //per night, 139 for roomType 'king' and 124 for type 'double'
     private int numberOfNights;
     private int weekendDays;
-    private boolean isWeekend;
+    private boolean isWeekend; //price is 10% higher on weekends
 
     public Reservation(String roomType, int numberOfNights) {
         this.roomType = roomType;

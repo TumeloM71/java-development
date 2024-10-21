@@ -5,6 +5,8 @@ public class Employee {
     String department;
     double payRate;
     int hoursWorked;
+    double clockInTime;
+    double clockOutTime;
 
     public Employee(int employeeId, String name, String department, double payRate, int hoursWorked) {
         this.employeeId = employeeId;
@@ -13,6 +15,15 @@ public class Employee {
         this.payRate = payRate;
         this.hoursWorked = hoursWorked;
     }
+
+    public void punchTimeCard(double time, boolean clockingIn){
+        if (clockingIn)
+            clockInTime = time;
+        else
+            clockOutTime = time;
+    }
+
+
 
     public int getEmployeeId() {
         return employeeId;
@@ -27,7 +38,7 @@ public class Employee {
     }
 
     public int getRegularHours(){
-        return hoursWorked<40 ? hoursWorked : 40;
+        return Math.min(hoursWorked, 40);
     }
 
     public int getOvertimeHours(){

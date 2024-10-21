@@ -5,11 +5,30 @@ public class Room {
     private boolean isOccupied;
     private boolean isDirty;
 
-    public Room(double price, int numberOfBeds, boolean isOccupied, boolean isDirty) {
-        this.price = price;
+    public Room(int numberOfBeds) {
+        this.price = 0;
         this.numberOfBeds = numberOfBeds;
-        this.isOccupied = isOccupied;
-        this.isDirty = isDirty;
+        this.isOccupied = false;
+        this.isDirty = false;
+    }
+
+    public void checkIn(Reservation r){
+        this.price = r.getReservationTotal();
+        System.out.println("Checked in successfully, Total cost: "+r.getReservationTotal());
+        this.isOccupied = true;
+        isDirty = true;
+    }
+    public void checkOut(){
+        if (this.isOccupied){
+            isOccupied = false;
+            price = 0;
+        }
+        else
+            System.out.println("Room is vacant.");
+    }
+
+    public void clean(){
+        this.isDirty = false;
     }
 
     public int getNumberOfBeds() {
