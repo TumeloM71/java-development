@@ -51,11 +51,10 @@ public class Employee {
         return Math.min(hoursWorked, 40);
     }
 
-    public double getOvertimeHours(){
-        return hoursWorked>40? hoursWorked-40 : 0;
-    }
+    public double getOvertimeHours(){ return hoursWorked>40? hoursWorked-40 : 0; }
 
     public double getTotalPay(){
-        return hoursWorked>40? 40*payRate + (hoursWorked-40)*payRate*2 : hoursWorked*payRate;
+        //Overtime pay is double the usual pay rate
+        return getRegularHours()*payRate + getOvertimeHours()*2*payRate;
     }
 }
