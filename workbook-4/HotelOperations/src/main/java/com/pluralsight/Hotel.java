@@ -1,3 +1,5 @@
+package com.pluralsight;
+
 public class Hotel {
 
     String name;

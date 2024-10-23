@@ -1,4 +1,5 @@
-import java.time.LocalDate;
+package com.pluralsight;
+
 import java.time.LocalDateTime;
 
 public class Employee {
@@ -13,12 +14,12 @@ public class Employee {
     LocalDateTime clockInTime;
     LocalDateTime clockOutTime;
 
-    public Employee(int employeeId, String name, String department, double payRate, int hoursWorked) {
+    public Employee(int employeeId, String name, String department, double payRate) {
         this.employeeId = employeeId;
         this.name = name;
         this.department = department;
         this.payRate = payRate;
-        this.hoursWorked = hoursWorked;
+        this.hoursWorked =0;
     }
 
     public void punchIn(double time){
@@ -27,6 +28,7 @@ public class Employee {
 
     public void punchOut(double time){
         clockOutTimeAsDouble = time;
+        hoursWorked+= (int)(clockOutTimeAsDouble-clockInTimeAsDouble);
     }
 
     public void punchIn(){

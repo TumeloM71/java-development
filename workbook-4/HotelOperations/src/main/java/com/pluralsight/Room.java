@@ -1,3 +1,5 @@
+package com.pluralsight;
+
 public class Room {
 
     private int numberOfBeds;
@@ -24,7 +26,7 @@ public class Room {
             price = 0;
         }
         else
-            System.out.println("Room is vacant.");
+            System.out.println("com.pluralsight.Room is vacant.");
     }
 
     public void clean(){
