@@ -26,11 +26,16 @@ public class Hotel {
 
     //Returns true the the required number of rooms can be booked
     public boolean bookRoom(int numberOfRoomsToBook, boolean isSuite){
-//        if (isSuite)
-//            return getAvailableSuites()>=numberOfRoomsToBook;
-//        else
-//            return getAvailableRooms()>=numberOfRoomsToBook;
-        return (isSuite) ? getAvailableSuites()>=numberOfRoomsToBook : getAvailableRooms()>=numberOfRoomsToBook;
+        if (isSuite && getAvailableSuites()>=numberOfRoomsToBook) {
+            bookedSuites += numberOfRoomsToBook;
+            return true;
+        }
+        else if ( !isSuite && getAvailableRooms() >= numberOfRoomsToBook){
+            bookedRooms += numberOfRoomsToBook;
+            return true;
+        }
+        else
+            return false;
     }
 
     public int getAvailableSuites(){

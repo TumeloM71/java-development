@@ -2,39 +2,43 @@ package com.pluralsight;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class Employee {
 
-    int employeeId;
-    String name,department;
-    double payRate,hoursWorked,clockInTimeAsDouble,clockOutTimeAsDouble;
-    LocalDateTime clockInTime, clockOutTime;
+    private int employeeId;
+    private String name;
+    private String department;
+    private double payRate;
+    private double hoursWorked;
+    private double clockInTimeAsDouble;
+    private double clockOutTimeAsDouble;
+    private LocalDateTime clockInTime;
+    private LocalDateTime clockOutTime;
 
     public Employee(int employeeId, String name, String department, double payRate) {
-        this.employeeId = employeeId;
-        this.name = name;
-        this.department = department;
-        this.payRate = payRate;
-        this.hoursWorked =0;
+        this.setEmployeeId(employeeId);
+        this.setName(name);
+        this.setDepartment(department);
+        this.setPayRate(payRate);
+        this.setHoursWorked(0);
     }
 
     public void punchIn(double time){
-        clockInTimeAsDouble = time;
+        setClockInTimeAsDouble(time);
     }
 
     public void punchOut(double time){
-        clockOutTimeAsDouble = time;
-        hoursWorked+= (int)(clockOutTimeAsDouble-clockInTimeAsDouble);
+        setClockOutTimeAsDouble(time);
+        setHoursWorked(getHoursWorked() + (int)(getClockOutTimeAsDouble() - getClockInTimeAsDouble()));
     }
 
     public void punchIn(){
-        clockInTime = LocalDateTime.now();
+        setClockInTime(LocalDateTime.now());
     }
 
     public void punchOut(){
-        clockOutTime = LocalDateTime.now();
-        hoursWorked+=( Duration.between(clockInTime,clockOutTime).toMinutes() )/60.0;
+        setClockOutTime(LocalDateTime.now());
+        setHoursWorked(getHoursWorked() + ( Duration.between(getClockInTime(), getClockOutTime()).toMinutes() )/60.0);
     }
 
 
@@ -51,13 +55,73 @@ public class Employee {
     }
 
     public double getRegularHours(){
-        return Math.min(hoursWorked, 40);
+        return Math.min(getHoursWorked(), 40);
     }
 
-    public double getOvertimeHours(){ return hoursWorked>40? hoursWorked-40 : 0; }
+    public double getOvertimeHours(){ return getHoursWorked() >40? getHoursWorked() -40 : 0; }
 
     public double getTotalPay(){
         //Overtime pay is 1.5 the usual pay rate
-        return getRegularHours()*payRate + getOvertimeHours()*1.5*payRate;
+        return getRegularHours()* getPayRate() + getOvertimeHours()*1.5* getPayRate();
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public double getPayRate() {
+        return payRate;
+    }
+
+    public void setPayRate(double payRate) {
+        this.payRate = payRate;
+    }
+
+    public double getHoursWorked() {
+        return hoursWorked;
+    }
+
+    public void setHoursWorked(double hoursWorked) {
+        this.hoursWorked = hoursWorked;
+    }
+
+    public double getClockInTimeAsDouble() {
+        return clockInTimeAsDouble;
+    }
+
+    public void setClockInTimeAsDouble(double clockInTimeAsDouble) {
+        this.clockInTimeAsDouble = clockInTimeAsDouble;
+    }
+
+    public double getClockOutTimeAsDouble() {
+        return clockOutTimeAsDouble;
+    }
+
+    public void setClockOutTimeAsDouble(double clockOutTimeAsDouble) {
+        this.clockOutTimeAsDouble = clockOutTimeAsDouble;
+    }
+
+    public LocalDateTime getClockInTime() {
+        return clockInTime;
+    }
+
+    public void setClockInTime(LocalDateTime clockInTime) {
+        this.clockInTime = clockInTime;
+    }
+
+    public LocalDateTime getClockOutTime() {
+        return clockOutTime;
+    }
+
+    public void setClockOutTime(LocalDateTime clockOutTime) {
+        this.clockOutTime = clockOutTime;
     }
 }
