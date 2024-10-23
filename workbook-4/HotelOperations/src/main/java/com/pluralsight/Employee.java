@@ -5,14 +5,9 @@ import java.time.LocalDateTime;
 public class Employee {
 
     int employeeId;
-    String name;
-    String department;
-    double payRate;
-    int hoursWorked;
-    double clockInTimeAsDouble;
-    double clockOutTimeAsDouble;
-    LocalDateTime clockInTime;
-    LocalDateTime clockOutTime;
+    String name,department;
+    double payRate,hoursWorked,clockInTimeAsDouble,clockOutTimeAsDouble;
+    LocalDateTime clockInTime, clockOutTime;
 
     public Employee(int employeeId, String name, String department, double payRate) {
         this.employeeId = employeeId;
@@ -52,11 +47,11 @@ public class Employee {
         return department;
     }
 
-    public int getRegularHours(){
+    public double getRegularHours(){
         return Math.min(hoursWorked, 40);
     }
 
-    public int getOvertimeHours(){
+    public double getOvertimeHours(){
         return hoursWorked>40? hoursWorked-40 : 0;
     }
 

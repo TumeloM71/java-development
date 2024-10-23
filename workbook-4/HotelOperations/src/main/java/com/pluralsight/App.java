@@ -4,7 +4,7 @@ public class App {
 
     public static void main(String[] args) {
         Employee jack = new Employee(1,"Jack","Security",40);
-        Employee jill = new Employee(1,"Jill","Administration",40);
+        Employee jill = new Employee(2,"Jill","Administration",40);
 
         jack.punchIn(9);
         jack.punchOut(17);
