@@ -35,7 +35,7 @@ public class App {
         System.out.println("Jill's overtime: "+jill.getOvertimeHours());
         System.out.println("Jill's pay: "+jill.getTotalPay());
 
-        Reservation reservation = new Reservation("double",14);
+        Reservation reservation = new Reservation("double",4);
         System.out.println("Cost : "+reservation.getReservationTotal());
     }
 }

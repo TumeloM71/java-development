@@ -8,12 +8,13 @@ public class Reservation {
     private double price; //per night, 139 for roomType 'king' and 124 for type 'double'
     private int numberOfNights;
     private int weekendDays;
-    private boolean isWeekend; //price is 10% higher on weekends
+    //price is 10% higher on weekends
+    private boolean isWeekend;
 
     public Reservation(String roomType, int numberOfNights) {
         this.roomType = roomType;
         this.numberOfNights = numberOfNights;
-        this.price = roomType.equals("king") ? 139 : 124;
+        this.price = roomType.equalsIgnoreCase("king") ? 139 : 124;
         this.weekendDays = numberOfWeekendDays(LocalDate.now(), LocalDate.now().plusDays(numberOfNights));
         this.isWeekend = weekendDays > 0;
     }

@@ -26,7 +26,7 @@ public class Room {
             price = 0;
         }
         else
-            System.out.println("com.pluralsight.Room is vacant.");
+            System.out.println("Room is vacant.");
     }
 
     public void clean(){
@@ -45,27 +45,12 @@ public class Room {
         return isOccupied;
     }
 
-    public boolean isAvailabe(){
-        return !isOccupied;
+    public boolean isAvailable(){
+        return !isOccupied && !isDirty;
     }
 
     public boolean isDirty() {
         return isDirty;
     }
 
-    public void setNumberOfBeds(int numberOfBeds) {
-        this.numberOfBeds = numberOfBeds;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public void setOccupied(boolean occupied) {
-        isOccupied = occupied;
-    }
-
-    public void setDirty(boolean dirty) {
-        isDirty = dirty;
-    }
 }
