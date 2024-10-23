@@ -1,6 +1,8 @@
 package com.pluralsight;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Employee {
 
@@ -32,6 +34,7 @@ public class Employee {
 
     public void punchOut(){
         clockOutTime = LocalDateTime.now();
+        hoursWorked+=( Duration.between(clockInTime,clockOutTime).toMinutes() )/60.0;
     }
 
 
@@ -54,7 +57,7 @@ public class Employee {
     public double getOvertimeHours(){ return hoursWorked>40? hoursWorked-40 : 0; }
 
     public double getTotalPay(){
-        //Overtime pay is double the usual pay rate
-        return getRegularHours()*payRate + getOvertimeHours()*2*payRate;
+        //Overtime pay is 1.5 the usual pay rate
+        return getRegularHours()*payRate + getOvertimeHours()*1.5*payRate;
     }
 }

@@ -15,10 +15,14 @@ public class Room {
     }
 
     public void checkIn(Reservation r){
-        this.price = r.getReservationTotal();
-        System.out.println("Checked in successfully, Total cost: "+r.getReservationTotal());
-        this.isOccupied = true;
-        isDirty = true;
+        if( isAvailable()) {
+            this.price = r.getReservationTotal();
+            System.out.println("Checked in successfully, Total cost: " + r.getReservationTotal());
+            this.isOccupied = true;
+            isDirty = true;
+        }
+        else
+            System.out.println("Sorry.Room not available");
     }
     public void checkOut(){
         if (this.isOccupied){
