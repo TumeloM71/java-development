@@ -50,11 +50,10 @@ public class App {
                 String playerChoice = "";
                 while (!stand){
                     //Dealer can't hit if they have over 17 points
-                    if( player.getName().equalsIgnoreCase("Dealer") && player.getHand().getValue()>17){
+                    if( player.getName().equalsIgnoreCase("Dealer") && player.getHand().getValue()>16){
                         System.out.println(player.toString());
                         break;
                     }
-
 
                     System.out.print(player.getName()+"'s turn: ");
                     System.out.println(player.getHand());
@@ -75,6 +74,7 @@ public class App {
                             stand = true;
                         }
                     }
+
                     else if(playerChoice.equalsIgnoreCase("S")){
                         System.out.println(); //Make an empty line for spacing
                         stand = true;
@@ -91,23 +91,34 @@ public class App {
 
             Hand winningHand = new Hand();
             Player winner = null;
+            ArrayList<Player> winningPlayers = new ArrayList<>();
             boolean push = false;//A push/standoff happens when players tie for the highest score
             for (Player player : players) {
                 System.out.println(player);
                 Hand playerHand = player.getHand();
-                if (winningHand.getValue() == playerHand.getValue())
+                if (winningHand.getValue() == playerHand.getValue()) {
                     push = true;
+                    winningPlayers.add(player);
+                }
 
                 if (winningHand.getValue() < playerHand.getValue()
                         && playerHand.getValue() <= 21) {
                     winningHand = playerHand;
                     winner = player;
+                    winningPlayers.clear();
+                    winningPlayers.add(player);
                     push = false;
                 }
             }
             System.out.println(); //Empty line for spacing
-            if (push)
+            if (push) {
                 System.out.println("Highest scores tied. Standoff!");
+                System.out.println("Winning players: ");
+                for( Player p : winningPlayers)
+                    System.out.println(p);
+            }
+            else if(winner == null)
+                System.out.println("No winner!");
             else
                 System.out.println(winner + " wins!!!");
         }
