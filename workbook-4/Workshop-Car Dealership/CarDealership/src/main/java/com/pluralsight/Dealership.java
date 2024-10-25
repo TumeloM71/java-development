@@ -89,11 +89,13 @@ public class Dealership {
             System.out.println("Unable to add specified vehicle.");
     }
 
-    public void removeVehicle(Vehicle vehicle){
-        if(inventory.remove(vehicle))
-            System.out.println("Successfully removed vehicle.");
+    public void removeVehicle(Vehicle vehicleToRemove){
+        if(inventory.contains(vehicleToRemove)) {
+            inventory.remove(vehicleToRemove);
+            System.out.println("Removed successfully");
+        }
         else
-            System.out.println("Unable to remove specified vheicle.");
+            System.out.println("Unable to remove");
     }
 
     public List<Vehicle> getAllVehicles() {

@@ -1,5 +1,7 @@
 package com.pluralsight;
 
+import java.util.Objects;
+
 public class Vehicle {
 
     private int vin;
@@ -20,6 +22,18 @@ public class Vehicle {
         this.vehicleType = vehicleType;
         this.odometer = odometer;
         this.price = price;
+    }
+
+    public Vehicle(String input){
+        String[] lineSplit = input.split("\\|");
+        this.vin = Utilities.getIntValue(lineSplit[0]);
+        this.year = Utilities.getIntValue(lineSplit[1]);
+
+        this.make = lineSplit[2]; this.model = lineSplit[3];
+        this.vehicleType = lineSplit[4]; this.color =lineSplit[5];
+
+        this.odometer = Utilities.getIntValue(lineSplit[6]);
+        this.price = Utilities.getDoubleValue(lineSplit[7]);
     }
 
     public int getYear() {
@@ -52,6 +66,18 @@ public class Vehicle {
 
     public int getVin() {
         return vin;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Vehicle vehicle)) return false;
+        return getVin() == vehicle.getVin() && getYear() == vehicle.getYear() && getOdometer() == vehicle.getOdometer() && Double.compare(getPrice(), vehicle.getPrice()) == 0 && Objects.equals(getMake(), vehicle.getMake()) && Objects.equals(getModel(), vehicle.getModel()) && Objects.equals(getVehicleType(), vehicle.getVehicleType()) && Objects.equals(getColor(), vehicle.getColor());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getVin(), getYear(), getMake(), getModel(), getVehicleType(), getColor(), getOdometer(), getPrice());
     }
 
     @Override
