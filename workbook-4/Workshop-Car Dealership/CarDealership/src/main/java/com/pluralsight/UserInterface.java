@@ -68,9 +68,9 @@ public class UserInterface {
 
     private void processGetByPriceRequest(){
         System.out.print("Enter the minimum price: ");
-        int min = Utilities.getIntValue(input.nextLine().trim());
+        double min = Utilities.getDoubleValue(input.nextLine().trim());
         System.out.print("Enter the maximum price: ");
-        int max = Utilities.getIntValue(input.nextLine().trim());
+        double max = Utilities.getDoubleValue(input.nextLine().trim());
         displayVehicles(dealership.getVehiclesByPrice(min,max));
     }
 
