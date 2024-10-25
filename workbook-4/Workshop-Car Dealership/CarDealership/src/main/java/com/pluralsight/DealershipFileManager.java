@@ -33,7 +33,7 @@ public class DealershipFileManager {
             Vehicle vehicle = new Vehicle(vin,model,make,year,color,type,odometer,price);
             inventory.add(vehicle);
         }
-
+        bufferedReader.close();
         return new Dealership(name,address,phone,inventory);
     }
 
@@ -41,9 +41,10 @@ public class DealershipFileManager {
         FileWriter fileWriter = new FileWriter("src/main/resources/inventory.csv");
         BufferedWriter bufferedWriter =new BufferedWriter(fileWriter);
 
-        bufferedWriter.write(dealership.toString());
+        bufferedWriter.write(dealership.toString()+"\n");
         for( Vehicle v :dealership.getAllVehicles()){
-            bufferedWriter.write(v.toString());
+            bufferedWriter.write(v.toString()+"\n");
         }
+        bufferedWriter.close();
     }
 }
