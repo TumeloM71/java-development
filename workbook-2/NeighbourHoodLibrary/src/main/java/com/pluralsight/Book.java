@@ -1,4 +1,7 @@
 package com.pluralsight;
+
+import javax.swing.*;
+
 /*
 Properties:
 id: int
@@ -30,6 +33,13 @@ public class Book {
         System.out.println("Checked out: "+this.title);
     }
 
+    public void checkOut(String name, JFrame frame){
+        this.checkedOutTo = name;
+        this.isCheckedOut = true;
+        JOptionPane.showMessageDialog(null,"Checked out successfully");
+        frame.setVisible(false);
+    }
+
     public void checkIn(){
         if (isCheckedOut){
             this.isCheckedOut=false;
@@ -37,6 +47,19 @@ public class Book {
         }
         else
             System.out.println("Book is already checked in");
+    }
+
+    public void checkIn(JFrame frame){
+        if (isCheckedOut){
+            this.isCheckedOut=false;
+            this.checkedOutTo = "";
+            JOptionPane.showMessageDialog(null,"Book checked in successfully");
+            frame.setVisible(false);
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Error. Book is already checked in.");
+            frame.setVisible(false);
+        }
     }
 
     public int getId() {
@@ -85,20 +108,15 @@ public class Book {
     @Override
     public String toString() {
         if (this.isCheckedOut()) {
-            return "Book{" +
-                    "id=" + id +
-                    ", isbn='" + isbn + '\'' +
-                    ", title='" + title + '\'' +
-                    ", checkedOutTo='" + checkedOutTo + '\'' +
-                    ", isCheckedOut=" + isCheckedOut +
-                    '}';
+            return "id: " + id +
+                    ", isbn: " + isbn + '\'' +
+                    ", title: " + title + '\'' +
+                    ", checkedOutTo: '" + checkedOutTo + '\'';
         }
         else{
-            return "Book{" +
-                    "id=" + id +
-                    ", isbn='" + isbn + '\'' +
-                    ", title='" + title + '\'' +
-                    '}';
+            return "id: " + id +
+                    ", isbn: " + isbn + '\'' +
+                    ", title=: " + title + '\'';
         }
     }
 }
