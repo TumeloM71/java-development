@@ -58,7 +58,6 @@ public class MortgageCalculator {
     {
         return (r * P * Math.pow(1 + r, N)) / (Math.pow(1 + r, N) - 1);
 
-
     }
 
     // Get total interest by subtracting principal from total paid

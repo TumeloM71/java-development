@@ -66,14 +66,14 @@ public class MyGUI {
         for(Book book : books){
             if(book.getCheckoutStatus()){
                 MyButton bookButton = new MyButton(book.toString());
-                bookButton.setBounds(10,yPosition,600,25);
+                bookButton.setBounds(10,yPosition,700,25);
                 bookButton.addActionListener( e -> book.checkIn(frame));
                 frame.add(bookButton);
                 yPosition+=30;
             }
         }
         MyButton backButton = new MyButton("Go back to previous menu");
-        backButton.setBounds(10,yPosition,600,25);
+        backButton.setBounds(10,yPosition,700,25);
         backButton.addActionListener(e -> frame.dispose());
         frame.add(backButton);
     }
