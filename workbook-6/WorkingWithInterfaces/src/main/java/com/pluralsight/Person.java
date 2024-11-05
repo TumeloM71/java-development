@@ -1,6 +1,6 @@
 package com.pluralsight;
 
-public class Person implements Comparable<Person>{
+public class Person {
     private String firstName;
     private String lastName;
     private int age;
@@ -23,17 +23,17 @@ public class Person implements Comparable<Person>{
         return age;
     }
 
-    @Override
-    public int compareTo(Person o) {
-
-        if (this.getLastName().compareTo(o.getLastName()) != 0)
-            return this.getLastName().compareTo(o.getLastName());
-
-        if (this.getFirstName().compareTo(o.getFirstName()) != 0)
-            return this.getFirstName().compareTo(o.getFirstName());
-
-        return Integer.compare(this.age,o.getAge());
-    }
+//    @Override
+//    public int compareTo(Person o) {
+//
+//        if (this.getLastName().compareTo(o.getLastName()) != 0)
+//            return this.getLastName().compareTo(o.getLastName());
+//
+//        if (this.getFirstName().compareTo(o.getFirstName()) != 0)
+//            return this.getFirstName().compareTo(o.getFirstName());
+//
+//        return Integer.compare(this.age,o.getAge());
+//    }
 
     @Override
     public String toString() {

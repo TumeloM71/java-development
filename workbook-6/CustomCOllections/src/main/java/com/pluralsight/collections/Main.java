@@ -1,4 +1,6 @@
-package com.pluralsight;
+package com.pluralsight.collections;
+
+import java.time.LocalDate;
 
 public class Main {
 
@@ -9,7 +11,6 @@ public class Main {
         integers.add(2);
         integers.add(3);
         integers.add(4);
-
         System.out.println(integers);
 
         FixedList<String> strings = new FixedList<>(3);
@@ -17,8 +18,12 @@ public class Main {
         strings.add("Bb");
         strings.add("Cc");
         strings.add("Dd");
-
         System.out.println(strings);
+
+        FixedList<LocalDate> dates = new FixedList<>(2);
+        dates.add(LocalDate.now());
+        dates.add(LocalDate.now().plusDays(1));
+        System.out.println(dates);
 
     }
 }

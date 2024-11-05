@@ -1,13 +1,11 @@
 package com.pluralsight;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        List<Person> myFamily = new ArrayList<Person>();
+        List<Person> myFamily = new ArrayList<>();
         myFamily.add( new Person("Dana", "Wyatt", 63) );
         myFamily.add( new Person("Zachary", "Westly", 31) );
         myFamily.add( new Person("Elisha", "Aslan", 14) );
@@ -18,7 +16,9 @@ public class Main {
         myFamily.add( new Person("Ashley", "Aiden", 18) );
         myFamily.add( new Person("Jacob", "Aiden", 17) );
 
-        Collections.sort(myFamily);
+        Comparator<Person> compByLastName = (Person e1,Person e2) -> e1.getLastName().compareTo(e2.getLastName());
+
+        Collections.sort(myFamily,compByLastName);
         for (Person p : myFamily)
             System.out.println(p);
     }
