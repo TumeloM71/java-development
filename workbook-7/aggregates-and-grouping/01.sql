@@ -1,0 +1,1 @@
+SELECT COUNT(*) AS "No. of Suppliers" FROM northwind.suppliers;

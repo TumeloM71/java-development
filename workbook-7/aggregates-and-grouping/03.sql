@@ -1,0 +1,1 @@
+SELECT Min(UnitPrice) AS CheapestProduct FROM northwind.products;

@@ -1,0 +1,2 @@
+SELECT * FROM northwind.products
+WHERE SupplierID = 4;
