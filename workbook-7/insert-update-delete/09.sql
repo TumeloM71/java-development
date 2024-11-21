@@ -1,0 +1,1 @@
+SELECT CompanyName AS Supplier FROM northwind.suppliers;
