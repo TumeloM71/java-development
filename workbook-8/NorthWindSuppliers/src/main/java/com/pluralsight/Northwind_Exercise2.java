@@ -18,15 +18,12 @@ public class Northwind_Exercise2 {
 
         ResultSet results = statement.executeQuery();
 
-        for (int i = 1; i<= results.getMetaData().getColumnCount(); i++) {
-            System.out.print(results.getMetaData().getColumnLabel(i)+ "|");
-        }
-        System.out.println();
         while (results.next()) {
             for (int i = 1; i<= results.getMetaData().getColumnCount(); i++) {
-                System.out.print(results.getString(i)+", ");
+                System.out.print(results.getMetaData().getColumnLabel(i)+" : ");
+                System.out.print(results.getString(i)+"\n");
             }
-            System.out.println();
+            System.out.println("---".repeat(80));
         }
         results.close();
         statement.close();
