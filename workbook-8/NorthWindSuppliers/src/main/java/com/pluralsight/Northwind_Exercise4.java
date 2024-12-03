@@ -1,20 +1,27 @@
 package com.pluralsight;
 
+import org.apache.commons.dbcp2.BasicDataSource;
+
 import java.sql.*;
 import java.util.Scanner;
 
 public class Northwind_Exercise4 {
 
-
     static String userName = null;
     static String password = null;
     static Scanner scanner;
+    static BasicDataSource dataSource;
 
     public static void main(String[] args) {
 
         userName = args[0];
         password = args[1];
         scanner = new Scanner(System.in);
+
+        dataSource = new BasicDataSource();
+        dataSource.setUrl("jdbc:mysql://localhost:3306/northwind");
+        dataSource.setUsername(userName);
+        dataSource.setPassword(password);
 
         boolean loopFlag = true;
         try {
@@ -45,29 +52,13 @@ public class Northwind_Exercise4 {
     public static void displayProductsInCategory(String CategoryID) throws ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         try (
-                Connection connection = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/northwind",
-                        userName,
-                        password);
+                Connection connection = dataSource.getConnection();
                 PreparedStatement statement = connection.prepareStatement("SELECT ProductID, ProductName, UnitPrice, UnitsInStock FROM northwind.products" +
                         " WHERE CategoryID = ?");
 
-                ) {
+        ) {
             statement.setString(1, CategoryID);
-
-            try(ResultSet results = statement.executeQuery()) {
-                while (results.next()) {
-                    for (int i = 1; i <= results.getMetaData().getColumnCount(); i++) {
-                        System.out.print(results.getMetaData().getColumnLabel(i) + " : ");
-                        System.out.print(results.getString(i) + "\n");
-                    }
-                    System.out.println("---".repeat(80));
-                }
-            }
-
-            catch (SQLException e){
-                e.printStackTrace();
-            }
+            displayResults(statement);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -75,53 +66,30 @@ public class Northwind_Exercise4 {
     }
 
     public static void displayAllCategories() throws ClassNotFoundException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
 
-        try(Connection connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/northwind",
-                userName,
-                password);
-            PreparedStatement statement = connection.prepareStatement("SELECT CategoryID, CategoryName, Description FROM northwind.categories");
-            ResultSet results = statement.executeQuery()){
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT CategoryID, CategoryName, Description FROM northwind.categories");
+        ) {
 
-            while (results.next()) {
-                for (int i = 1; i <= results.getMetaData().getColumnCount(); i++) {
-                    System.out.print(results.getMetaData().getColumnLabel(i) + " : ");
-                    System.out.print(results.getString(i) + "\n");
-                }
-                System.out.println("---".repeat(80));
-            }
-
+            displayResults(statement);
             System.out.println("Enter a CategoryID to see all the products in that Category:");
             String CategoryID = scanner.nextLine().trim();
             displayProductsInCategory(CategoryID);
-        }
 
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
 
-    public static void displayCustomers() throws ClassNotFoundException{
-        Class.forName("com.mysql.cj.jdbc.Driver");
+    public static void displayCustomers() throws ClassNotFoundException {
 
-        try (Connection connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/northwind",
-                userName,
-                password);
-             PreparedStatement statement = connection.prepareStatement("SELECT CompanyName, ContactName, ContactTitle, City, Country, Phone FROM northwind.customers;");
-             ResultSet results = statement.executeQuery()) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT CompanyName, ContactName, ContactTitle, City, Country, Phone FROM northwind.customers;")
+        ) {
+            displayResults(statement);
 
-            while (results.next()) {
-                for (int i = 1; i <= results.getMetaData().getColumnCount(); i++) {
-                    System.out.print(results.getMetaData().getColumnLabel(i) + " : ");
-                    System.out.print(results.getString(i) + "\n");
-                }
-                System.out.println("---".repeat(80));
-            }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -130,14 +98,19 @@ public class Northwind_Exercise4 {
     public static void displayProducts() throws ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         try (
-                Connection connection = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/northwind",
-                        userName,
-                        password);
+                Connection connection = dataSource.getConnection();
                 PreparedStatement statement = connection.prepareStatement("SELECT ProductID, ProductName, UnitPrice, UnitsInStock FROM northwind.products" +
-                        " ORDER BY ProductName");
-                ResultSet results = statement.executeQuery()) {
+                        " ORDER BY ProductName")
+        ) {
+            displayResults(statement);
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void displayResults(PreparedStatement statement) {
+        try (ResultSet results = statement.executeQuery()) {
             while (results.next()) {
                 for (int i = 1; i <= results.getMetaData().getColumnCount(); i++) {
                     System.out.print(results.getMetaData().getColumnLabel(i) + " : ");
@@ -148,9 +121,5 @@ public class Northwind_Exercise4 {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void displayResults(){
-
     }
 }
