@@ -50,7 +50,7 @@ public class Northwind_Exercise4 {
     }
 
     public static void displayProductsInCategory(String CategoryID) throws ClassNotFoundException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
+
         try (
                 Connection connection = dataSource.getConnection();
                 PreparedStatement statement = connection.prepareStatement("SELECT ProductID, ProductName, UnitPrice, UnitsInStock FROM northwind.products" +
