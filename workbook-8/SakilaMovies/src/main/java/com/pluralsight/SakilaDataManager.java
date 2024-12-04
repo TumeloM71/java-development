@@ -31,7 +31,6 @@ public class SakilaDataManager {
         dataSource.setUsername(userName);
         dataSource.setPassword(password);
 
-
         boolean loopFlag = true;
 
         try {
@@ -51,9 +50,9 @@ public class SakilaDataManager {
                 scanner.nextLine();
                 System.out.println();
                 switch (selection) {
-                    case 1 -> getActorsByFirstName().forEach(System.out::println);
-                    case 2 -> getActorsByLastName().forEach(System.out::println);
-                    case 3 -> getActorsByFullName().forEach(System.out::println);
+                    case 1 -> getActorsByFirstName(askForFirstName()).forEach(System.out::println);
+                    case 2 -> getActorsByLastName(askForLastName()).forEach(System.out::println);
+                    case 3 -> getActorsByFullName(askForFirstName(),askForLastName()).forEach(System.out::println);
                     case 4 -> getFilmsByActorId().forEach(System.out::println);
                     case 5 -> displayFilmsWithActor();
                     case 6 -> displayActorsWithLastName();
@@ -68,6 +67,7 @@ public class SakilaDataManager {
         }
     }
 
+
     public static String askForFirstName(){
         System.out.print("Enter the first name: ");
         return scanner.nextLine().trim();
@@ -78,8 +78,8 @@ public class SakilaDataManager {
         return scanner.nextLine().trim();
     }
 
-    public static List<Actor> getActorsByFirstName() {
-        String firstName = askForFirstName();
+    //returns a list of actors from the database with the given firstName
+    public static List<Actor> getActorsByFirstName(String firstName) {
         System.out.println();
 
         List<Actor> actors;
@@ -95,10 +95,9 @@ public class SakilaDataManager {
         return actors;
     }
 
-    public static List<Actor> getActorsByLastName() {
+    public static List<Actor> getActorsByLastName(String lastName) {
 
         System.out.println();
-        String lastName = askForLastName();
         List<Actor> actors;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT actor_id, first_name, last_name FROM sakila.actor \n" +
@@ -112,10 +111,8 @@ public class SakilaDataManager {
         return actors;
     }
 
-    public static List<Actor> getActorsByFullName() {
+    public static List<Actor> getActorsByFullName(String firstName, String lastName) {
 
-        String firstName = askForFirstName();
-        String lastName = askForLastName();
         System.out.println();
 
         List<Actor> actors;
@@ -132,6 +129,7 @@ public class SakilaDataManager {
         return actors;
     }
 
+    //Returns a list of Actors from the given query statement
     public static List<Actor> getActorsList(PreparedStatement statement) {
         List<Actor> actors = new ArrayList<>();
         try (ResultSet results = statement.executeQuery()) {
@@ -151,6 +149,7 @@ public class SakilaDataManager {
         return scanner.nextInt();
     }
 
+    //Returns a list of films from the given actorId
     public static List<Film> getFilmsByActorId() {
 
         int actorId = askForActorId();
@@ -190,10 +189,8 @@ public class SakilaDataManager {
 
     public static void displayFilmsWithActor() {
         System.out.println("Which actors films do you want to see");
-        System.out.print("Enter their first name: ");
-        String firstName = scanner.nextLine().trim();
-        System.out.print("Enter their last name: ");
-        String lastName = scanner.nextLine().trim();
+        String firstName = askForFirstName();
+        String lastName = askForLastName();
 
         System.out.println();
 
@@ -214,8 +211,7 @@ public class SakilaDataManager {
 
     public static void displayActorsWithLastName() {
 
-        System.out.println("Enter the last name of an actor you like: ");
-        String lastName = scanner.nextLine().trim();
+        String lastName = askForLastName();
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT * FROM sakila.actor WHERE last_name LIKE ?")
