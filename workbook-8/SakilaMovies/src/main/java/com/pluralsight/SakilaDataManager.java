@@ -17,56 +17,8 @@ public class SakilaDataManager {
 
     static String userName = null;
     static String password = null;
-    static Scanner scanner;
+    static Scanner scanner = new Scanner(System.in);
     static BasicDataSource dataSource;
-
-    public static void main(String[] args) {
-
-        userName = args[0];
-        password = args[1];
-        scanner = new Scanner(System.in);
-
-        dataSource = new BasicDataSource();
-        dataSource.setUrl("jdbc:mysql://localhost:3306/sakila");
-        dataSource.setUsername(userName);
-        dataSource.setPassword(password);
-
-        boolean loopFlag = true;
-
-        try {
-            while (loopFlag) {
-                System.out.println();
-                System.out.print("What do you want to do?\n" +
-                        "1) Get list of actors by first name\n" +
-                        "2) Get list of actors by last name\n" +
-                        "3) Get list actors by full name\n" +
-                        "4) Get list films by actorId\n" +
-                        "5) Display films with specific actor name\n" +
-                        "6) Display actors with specific last name\n" +
-                        "0) Exit\n" +
-                        "Select an option: ");
-
-                int selection = scanner.nextInt();
-                scanner.nextLine();
-                System.out.println();
-                switch (selection) {
-                    case 1 -> getActorsByFirstName(askForFirstName()).forEach(System.out::println);
-                    case 2 -> getActorsByLastName(askForLastName()).forEach(System.out::println);
-                    case 3 -> getActorsByFullName(askForFirstName(),askForLastName()).forEach(System.out::println);
-                    case 4 -> getFilmsByActorId().forEach(System.out::println);
-                    case 5 -> displayFilmsWithActor();
-                    case 6 -> displayActorsWithLastName();
-                    case 0 -> loopFlag = false;
-                    default -> System.out.println("Invalid input. Try again");
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            System.exit(0);
-        }
-    }
-
 
     public static String askForFirstName(){
         System.out.print("Enter the first name: ");
@@ -221,7 +173,6 @@ public class SakilaDataManager {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public static void displayResults(PreparedStatement statement) {
@@ -239,5 +190,37 @@ public class SakilaDataManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static String getUserName() {
+        return userName;
+    }
+
+    public static void setUserName(String userName) {
+        SakilaDataManager.userName = userName;
+    }
+
+    public static String getPassword() {
+        return password;
+    }
+
+    public static void setPassword(String password) {
+        SakilaDataManager.password = password;
+    }
+
+    public static Scanner getScanner() {
+        return scanner;
+    }
+
+    public static void setScanner(Scanner scanner) {
+        SakilaDataManager.scanner = scanner;
+    }
+
+    public static BasicDataSource getDataSource() {
+        return dataSource;
+    }
+
+    public static void setDataSource(BasicDataSource dataSource) {
+        SakilaDataManager.dataSource = dataSource;
     }
 }
