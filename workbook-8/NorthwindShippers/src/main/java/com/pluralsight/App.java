@@ -27,7 +27,10 @@ public class App {
                 System.out.println();
                 System.out.print("What do you want to do?\n" +
                         "1) Add a new shipper\n" +
-                        "2) Display shippers\n " +
+                        "2) Display shippers\n" +
+                        "3) Update shipper name\n" +
+                        "4) Update shipper phone\n" +
+                        "5) Delete shipper\n" +
                         "0) Exit\n" +
                         "Select an option: ");
 
@@ -37,6 +40,9 @@ public class App {
                 switch (selection) {
                     case 1 -> addNewShipper();
                     case 2 -> displayShippers();
+                    case 3 -> updateShipperName();
+                    case 4 -> updateShipperPhone();
+                    case 5 -> deleteShipper();
                     case 0 -> loopFlag = false;
                     default -> System.out.println("Invalid input. Try again");
                 }
@@ -54,6 +60,25 @@ public class App {
 
     public static void addNewShipper(){
         DataManager.addShipper(askForCompanyName(), askForPhoneNumber());
+    }
+
+    public static void updateShipperName(){
+        DataManager.updateShipperName(askForShipperId(), askForCompanyName());
+    }
+
+    public static void updateShipperPhone(){
+        DataManager.updateShipperPhone(askForShipperId(), askForPhoneNumber());
+    }
+
+    public static void deleteShipper(){
+        DataManager.deleteShipper(askForShipperId());
+    }
+
+    public static int askForShipperId(){
+        System.out.println("What is the shipper Id?");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        return id;
     }
 
     public static String askForCompanyName(){

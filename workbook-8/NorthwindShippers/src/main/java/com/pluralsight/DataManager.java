@@ -21,12 +21,68 @@ public class DataManager {
             statement.setString(2,phone);
 
             int rows = statement.executeUpdate();
-            System.out.println("Rows updated: "+rows);
+            System.out.println("Rows added: "+rows);
             displayAddedKeys(statement);
 
         }
         catch (SQLException e){
             e.printStackTrace();
+        }
+    }
+
+    public static void updateShipperPhone(int shipperId, String phone){
+
+        try(
+            Connection connection = dataSource.getConnection();
+            PreparedStatement statement = connection.prepareStatement("""
+                    UPDATE northwind.shippers
+                    SET Phone = ?
+                    WHERE ShipperId = ?
+                    """)
+            ) {
+                statement.setString(1, phone);
+                statement.setInt(2,shipperId);
+                int rows = statement.executeUpdate();
+                System.out.println("Rows updated: "+rows);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void updateShipperName(int shipperId, String name){
+        try(
+              Connection connection = dataSource.getConnection();
+              PreparedStatement statement = connection.prepareStatement("""
+                    UPDATE northwind.shippers
+                    SET CompanyName = ?
+                    WHERE ShipperId = ?
+                    """)
+            ){
+                statement.setString(1,name);
+                statement.setInt(2,shipperId);
+                int rows = statement.executeUpdate();
+                System.out.println("Rows updated: "+rows);
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void deleteShipper(int shipperId){
+        try(
+              Connection connection = dataSource.getConnection();
+              PreparedStatement statement = connection.prepareStatement("""
+                      DELETE FROM northwind.shippers
+                      WHERE ShipperId = ?
+                      """)
+            ) {
+                statement.setInt(1, shipperId);
+                int rows = statement.executeUpdate();
+            System.out.println("Rows deleted: "+rows);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
