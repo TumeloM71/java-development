@@ -30,6 +30,8 @@ public class App {
                         "5) Get cars by mileage range\n" +
                         "6) Get cars by color\n" +
                         "7) Get cars by type\n" +
+                        "8) Add vehicle\n" +
+                        "9) Delete vehicle\n" +
                         "0) Exit\n" +
                         "Select an option: ");
 
@@ -44,6 +46,8 @@ public class App {
                     case 5 -> getByMileageRange(vehiclesManager);
                     case 6 -> getByColor(vehiclesManager);
                     case 7 -> getByType(vehiclesManager);
+                    case 8 -> addAVehicle(vehiclesManager);
+                    case 9 -> deleteAVehicle(vehiclesManager);
                     case 0 -> loopFlag = false;
                     default -> System.out.println("Invalid input. Try again");
                 }
@@ -115,27 +119,65 @@ public class App {
         vehicles.forEach(System.out::println);
     }
 
+    public static void addAVehicle(VehiclesDAO vehiclesDAO){
+
+        Vehicle vehicle = new Vehicle(askForVIN(),askForMake(), askForModel(),
+                askForYear(),askForMileage(),askForPrice(),0,askForColor(), askForType());
+        vehiclesDAO.addVehicle(vehicle);
+    }
+
+    public static void deleteAVehicle(VehiclesDAO vehiclesDAO){
+
+        vehiclesDAO.deleteVehicle(askForVIN());
+    }
+
+    public static String askForVIN(){
+        System.out.print("Enter the VIN: ");
+        return scanner.nextLine();
+    }
+
+    public static int askForYear(){
+        System.out.print("Enter the year: ");
+        int year = scanner.nextInt();
+        scanner.nextLine();
+        return year;
+    }
+
+    public static int askForMileage(){
+        System.out.print("Enter the mileage: ");
+        int mileage = scanner.nextInt();
+        scanner.nextLine();
+        return mileage;
+    }
+
+    public static double askForPrice(){
+        System.out.print("Enter the price: ");
+        double price = scanner.nextDouble();
+        scanner.nextLine();
+        return price;
+    }
+
     public static String askForMake(){
 
-        System.out.println("Enter the make");
+        System.out.print("Enter the make: ");
         return scanner.nextLine();
     }
 
     public static String askForModel(){
 
-        System.out.println("Enter the model");
+        System.out.print("Enter the model: ");
         return scanner.nextLine();
     }
 
     public static String askForColor(){
 
-        System.out.println("Enter the color");
+        System.out.print("Enter the color: ");
         return scanner.nextLine();
     }
 
     public static String askForType(){
 
-        System.out.println("Enter the type");
+        System.out.print("Enter the type: ");
         return scanner.nextLine();
     }
 

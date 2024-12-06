@@ -3,10 +3,7 @@ package com.pluralsight.datamanagers;
 import com.pluralsight.models.Vehicle;
 import org.apache.commons.dbcp2.BasicDataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +20,63 @@ public class VehiclesDAO {
         dataSource.setPassword(password);
         this.userName = userName;
         this.password = password;
+    }
+
+    public void addVehicle(Vehicle vehicle){
+
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement statement = connection.prepareStatement("""
+                    INSERT INTO `car dealerships`.vehicles
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """, Statement.RETURN_GENERATED_KEYS)){
+
+            statement.setString(1, vehicle.VIN());
+            statement.setString(2, vehicle.make());
+            statement.setString(3, vehicle.model());
+            statement.setInt(4, vehicle.year());
+            statement.setInt(5,vehicle.mileage());
+            statement.setDouble(6,vehicle.price());
+            statement.setInt(7,vehicle.sold());
+            statement.setString(8,vehicle.color());
+            statement.setString(9,vehicle.type());
+
+            int rows = statement.executeUpdate();
+            System.out.println("Rows added: "+rows);
+            this.displayAddedKeys(statement);
+
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteVehicle(String VIN){
+        try(
+                Connection connection = dataSource.getConnection();
+                PreparedStatement statement = connection.prepareStatement("""
+                      DELETE FROM `car dealerships`.vehicles
+                      WHERE VIN = ?
+                      """)
+        ) {
+            statement.setString(1, VIN);
+            int rows = statement.executeUpdate();
+            System.out.println("Rows deleted: "+rows);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void displayAddedKeys(PreparedStatement statement){
+
+        try (ResultSet keys = statement.getGeneratedKeys()
+        ) {
+            while (keys.next()) {
+                System.out.printf("%d key was added\n",
+                        keys.getLong(1));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<Vehicle> getByPriceRange(double minPrice, double maxPrice){
@@ -72,8 +126,8 @@ public class VehiclesDAO {
                         WHERE Make LIKE ? AND Model LIKE ?   
                         """)
         ){
-            statement.setString(1,make);
-            statement.setString(2,model);
+            statement.setString(1,'%'+make+'%');
+            statement.setString(2,'%'+model+'%');
             output = getVehiclesList(statement);
         }
         catch (SQLException e) {
@@ -91,7 +145,7 @@ public class VehiclesDAO {
                         WHERE Make LIKE ? 
                         """)
         ){
-            statement.setString(1,make);
+            statement.setString(1,'%'+make+'%');
             output = getVehiclesList(statement);
         }
         catch (SQLException e) {
@@ -128,7 +182,7 @@ public class VehiclesDAO {
                         WHERE Color LIKE ? 
                         """)
         ){
-            statement.setString(1,color);
+            statement.setString(1,'%'+color+'%');
             output = getVehiclesList(statement);
         }
         catch (SQLException e) {
@@ -137,7 +191,7 @@ public class VehiclesDAO {
         return output;
     }
 
-    public List<Vehicle> getByType(String color){
+    public List<Vehicle> getByType(String type){
         List<Vehicle> output;
         try(
                 Connection connection = dataSource.getConnection();
@@ -146,7 +200,7 @@ public class VehiclesDAO {
                         WHERE Type LIKE ? 
                         """)
         ){
-            statement.setString(1,color);
+            statement.setString(1,'%'+type+'%');
             output = getVehiclesList(statement);
         }
         catch (SQLException e) {
