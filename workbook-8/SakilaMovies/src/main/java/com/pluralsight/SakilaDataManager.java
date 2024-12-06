@@ -39,7 +39,7 @@ public class SakilaDataManager {
              PreparedStatement statement = connection.prepareStatement("SELECT actor_id, first_name, last_name FROM sakila.actor \n" +
                      "WHERE first_name LIKE ?")
         ) {
-            statement.setString(1, firstName);
+            statement.setString(1, '%'+firstName+'%');
             actors = getActorsList(statement);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -55,7 +55,7 @@ public class SakilaDataManager {
              PreparedStatement statement = connection.prepareStatement("SELECT actor_id, first_name, last_name FROM sakila.actor \n" +
                      "WHERE last_name LIKE ?")
         ) {
-            statement.setString(1, lastName);
+            statement.setString(1,'%'+lastName+'%');
             actors = getActorsList(statement);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -72,8 +72,8 @@ public class SakilaDataManager {
              PreparedStatement statement = connection.prepareStatement("SELECT actor_id, first_name, last_name FROM sakila.actor \n" +
                      "WHERE first_name LIKE ? AND last_name LIKE ?")
         ) {
-            statement.setString(1, firstName);
-            statement.setString(2, lastName);
+            statement.setString(1,'%'+ firstName + '%');
+            statement.setString(2, '%' + lastName + '%');
             actors = getActorsList(statement);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -107,9 +107,9 @@ public class SakilaDataManager {
         int actorId = askForActorId();
         List<Film> films;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT f.film_id,title,description,length,release_year FROM sakila.film_actor s\n" +
-                     "JOIN film f ON s.film_id = f.film_id\n" +
-                     "JOIN actor a ON s.actor_id = a.actor_id\n" +
+             PreparedStatement statement = connection.prepareStatement("SELECT f.film_id,title,description,length,release_year FROM sakila.film_actor s " +
+                     "JOIN film f ON s.film_id = f.film_id " +
+                     "JOIN actor a ON s.actor_id = a.actor_id " +
                      "WHERE s.actor_id LIKE ?")
         ) {
             statement.setInt(1, actorId);

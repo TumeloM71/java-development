@@ -18,7 +18,6 @@ public class App {
         dataSource.setUsername(userName);
         dataSource.setPassword(password);
         DataManager.setDataSource(dataSource);
-        DataManager.setScanner(scanner);
 
         boolean loopFlag = true;
 
@@ -50,6 +49,7 @@ public class App {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            scanner.close();
             System.exit(0);
         }
     }

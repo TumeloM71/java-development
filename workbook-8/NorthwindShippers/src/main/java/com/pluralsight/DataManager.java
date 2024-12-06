@@ -3,13 +3,11 @@ package com.pluralsight;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.sql.*;
-import java.util.Scanner;
 
 public class DataManager {
 
     static String userName = null;
     static String password = null;
-    static Scanner scanner = new Scanner(System.in);
     static BasicDataSource dataSource;
 
     public static void addShipper(String companyName, String phone){
@@ -156,13 +154,6 @@ public class DataManager {
         DataManager.password = password;
     }
 
-    public static Scanner getScanner() {
-        return scanner;
-    }
-
-    public static void setScanner(Scanner scanner) {
-        DataManager.scanner = scanner;
-    }
 
     public static BasicDataSource getDataSource() {
         return dataSource;
