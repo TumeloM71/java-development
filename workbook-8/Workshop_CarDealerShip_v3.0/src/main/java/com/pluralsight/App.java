@@ -4,6 +4,7 @@ import com.pluralsight.datamanagers.VehiclesDAO;
 import com.pluralsight.models.Vehicle;
 
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -69,6 +70,7 @@ public class App {
         int min = askForInt("min");
         int max = askForInt("max");
         List<Vehicle> vehicles = vehicleManager.getByYearRange(min,max);
+        vehicles.sort(Comparator.comparing(Vehicle::year));
         vehicles.forEach(System.out::println);
     }
 
@@ -76,7 +78,8 @@ public class App {
 
         int min = askForInt("min");
         int max = askForInt("max");
-        List<Vehicle> vehicles = vehiclesDAO.getByYearRange(min,max);
+        List<Vehicle> vehicles = vehiclesDAO.getByMileageRange(min,max);
+        vehicles.sort(Comparator.comparing(Vehicle::mileage));
         vehicles.forEach(System.out::println);
     }
 
@@ -84,6 +87,7 @@ public class App {
 
         String make = askForMake();
         List<Vehicle> vehicles = vehiclesDAO.getByMake(make);
+        vehicles.sort(Comparator.comparing(Vehicle::make));
         vehicles.forEach(System.out::println);
     }
 
@@ -92,6 +96,7 @@ public class App {
         String make = askForMake();
         String model = askForModel();
         List<Vehicle> vehicles = vehiclesDAO.getByMakeModel(make, model);
+        vehicles.sort(Comparator.comparing(Vehicle::make));
         vehicles.forEach(System.out::println);
     }
 
@@ -99,12 +104,14 @@ public class App {
 
         String color = askForColor();
         List<Vehicle> vehicles = vehiclesDAO.getByColor(color);
+        vehicles.sort(Comparator.comparing(Vehicle::make));
         vehicles.forEach(System.out::println);
     }
 
     public static void getByType(VehiclesDAO vehiclesDAO){
         String type = askForType();
         List<Vehicle> vehicles = vehiclesDAO.getByType(type);
+        vehicles.sort(Comparator.comparing(Vehicle::make));
         vehicles.forEach(System.out::println);
     }
 
