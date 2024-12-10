@@ -12,6 +12,7 @@ public class SimpleProductDAOImpl implements SimpleProductDAO {
 
     private List<Product> products;
 
+    @Autowired
     public SimpleProductDAOImpl() {
         products = new ArrayList<>();
         products.add(new Product(1,"Oreo Cookies","Snacks",2.89));
