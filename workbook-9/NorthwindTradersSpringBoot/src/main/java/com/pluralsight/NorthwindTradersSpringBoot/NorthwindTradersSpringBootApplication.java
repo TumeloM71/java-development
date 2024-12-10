@@ -10,5 +10,6 @@ public class NorthwindTradersSpringBootApplication {
 
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(NorthwindTradersSpringBootApplication.class, args);
+
 	}
 }

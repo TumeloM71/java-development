@@ -1,8 +1,8 @@
 package com.pluralsight.NorthwindTradersSpringBoot.cli;
 
 import com.pluralsight.NorthwindTradersSpringBoot.models.Product;
-import com.pluralsight.NorthwindTradersSpringBoot.repository.SimpleProductDAO;
-import com.pluralsight.NorthwindTradersSpringBoot.repository.SimpleProductDAOImpl;
+import com.pluralsight.NorthwindTradersSpringBoot.repository.ProductDAO;
+import com.pluralsight.NorthwindTradersSpringBoot.repository.ProductDAOImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -13,10 +13,10 @@ import java.util.Scanner;
 public class CLI implements CommandLineRunner {
 
     Scanner scanner;
-    SimpleProductDAOImpl productDAO;
+    ProductDAOImpl productDAO;
 
     @Autowired
-    public CLI(SimpleProductDAOImpl productDAO){
+    public CLI(ProductDAOImpl productDAO){
         this.productDAO = productDAO;
         scanner = new Scanner(System.in);
     }
@@ -33,21 +33,21 @@ public class CLI implements CommandLineRunner {
             System.out.println("""
                     (1) View all products
                     (2) Add a product
+                    (3) Delete product
                     (0) Exit
                     """);
             switch (scanner.nextLine().trim()) {
                 case "1" -> productDAO.getAll().forEach(System.out::println);
-                case "2" -> addAll(productDAO);
+                case "2" -> add(productDAO);
+                case "3" -> delete(productDAO);
                 case "0" -> loopFlag = false;
                 default -> System.out.println("Invalid input");
             }
         }
     }
 
-    public void addAll(SimpleProductDAO productDAO){
-        System.out.println("Enter the product id");
-        int id = scanner.nextInt();
-        scanner.nextLine();
+    public void add (ProductDAO productDAO){
+
         System.out.println("Enter the product name");
         String name = scanner.nextLine();
         System.out.println("Enter the product category");
@@ -56,6 +56,13 @@ public class CLI implements CommandLineRunner {
         double price = scanner.nextDouble();
         scanner.nextLine();
 
-        productDAO.add(new Product(id,name,category,price));
+        productDAO.add(new Product(0,name,category,price));
+    }
+
+    public void delete(ProductDAO productDAO){
+        System.out.println("Enter the productId");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        productDAO.delete(id);
     }
 }
