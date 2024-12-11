@@ -10,5 +10,7 @@ public interface ProductDAO {
 
     void delete(int productId);
 
+    Product getById(int id);
+
     List<Product> getAll();
 }

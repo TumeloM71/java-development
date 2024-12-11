@@ -1,5 +1,6 @@
 package com.pluralsight.NorthwindTradersSpringBoot.repository;
 
+import com.pluralsight.NorthwindTradersSpringBoot.models.Category;
 import com.pluralsight.NorthwindTradersSpringBoot.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,32 +14,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class ProductDAOImpl implements ProductDAO {
+public class CategoryDAOImpl implements CategoryDAO {
 
-    private List<Product> products;
+    private List<Category> categories;
     private DataSource dataSource;
 
     @Autowired
-    public ProductDAOImpl(DataSource dataSource) {
-        this.products = new ArrayList<>();
+    public CategoryDAOImpl(DataSource dataSource) {
+        this.categories = new ArrayList<>();
         this.dataSource = dataSource;
     }
 
     @Override
-    public void add(Product p){
+    public void add(Category c){
         String sql = """
-                INSERT INTO northwind.productswithcategories (ProductName,CategoryName,UnitPrice)
-                VALUES(?, ?, ?)
+                INSERT INTO northwind.categories (CategoryName, Description)
+                VALUES(?, ?)
                 """;
 
         try (
-              Connection connection = dataSource.getConnection();
-              PreparedStatement statement = connection.prepareStatement(sql)
-                )
+                Connection connection = dataSource.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+        )
         {
-            statement.setString(1,p.getName());
-            statement.setString(2,p.getCategory());
-            statement.setDouble(3,p.getPrice());
+            statement.setString(1,c.getCategoryName());
+            statement.setString(2,c.getDescription());
 
             int rows = statement.executeUpdate();
             System.out.println("Rows updated "+rows);
@@ -48,15 +48,15 @@ public class ProductDAOImpl implements ProductDAO {
         }
     }
 
-    public void delete(int productId){
+    public void delete(int categoryId){
         try(
                 Connection connection = dataSource.getConnection();
                 PreparedStatement statement = connection.prepareStatement("""
-                      DELETE FROM northwind.productswithcategories
-                      WHERE ProductId = ?
+                      DELETE FROM northwind.categories
+                      WHERE CategoryId = ?
                       """)
         ) {
-            statement.setInt(1, productId);
+            statement.setInt(1, categoryId);
             int rows = statement.executeUpdate();
             System.out.println("Rows deleted: "+rows);
         } catch (SQLException e) {
@@ -64,38 +64,36 @@ public class ProductDAOImpl implements ProductDAO {
         }
     }
     @Override
-    public List<Product> getAll() {
+    public List<Category> getAll() {
 
-        this.products.clear();
+        this.categories.clear();
         String selectAllQuery =  """
-      
-                SELECT ProductID, ProductName, CategoryName, UnitPrice FROM northwind.productswithcategories p
-                ORDER BY p.ProductId;
+                SELECT CategoryID,CategoryName,Description FROM northwind.categories;
                 """;
         try(
-            Connection connection = dataSource.getConnection();
-            PreparedStatement statement = connection.prepareStatement(selectAllQuery);
-            ResultSet resultSet = statement.executeQuery();
-                )
+                Connection connection = dataSource.getConnection();
+                PreparedStatement statement = connection.prepareStatement(selectAllQuery);
+                ResultSet resultSet = statement.executeQuery();
+        )
         {
             while (resultSet.next()){
-                products.add(new Product(resultSet.getInt(1),
+                categories.add(new Category(resultSet.getInt(1),
                         resultSet.getString(2),
-                        resultSet.getString(3),resultSet.getDouble(4)));
+                        resultSet.getString(3)));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        return this.products;
+        return this.categories;
     }
     @Override
-    public Product getById(int id){
+    public Category getById(int id){
 
-        Product p = new Product();
+        Category category = new Category();
         String sql = """
-                SELECT ProductID, ProductName, CategoryName, UnitPrice FROM northwind.productswithcategories p
-                WHERE ProductID = ?
+                SELECT CategoryID,CategoryName,Description FROM northwind.categories;
+                WHERE CategoryID = ?
                 """;
         try (
                 Connection connection = dataSource.getConnection();
@@ -106,8 +104,8 @@ public class ProductDAOImpl implements ProductDAO {
 
             try (ResultSet resultSet = statement.executeQuery()){
                 while (resultSet.next())
-                    p = new Product(resultSet.getInt(1), resultSet.getString(2),
-                            resultSet.getString(3), resultSet.getDouble(4));
+                    category = new Category(resultSet.getInt(1), resultSet.getString(2),
+                            resultSet.getString(3));
             }
             catch (SQLException e){
                 throw new RuntimeException(e);
@@ -116,7 +114,6 @@ public class ProductDAOImpl implements ProductDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return p;
+        return category;
     }
-
 }
