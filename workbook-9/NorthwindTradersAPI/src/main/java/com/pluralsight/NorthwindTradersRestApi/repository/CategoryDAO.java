@@ -10,7 +10,7 @@ public interface CategoryDAO {
 
     void delete(int categoryId);
 
-    void updateName(int id, String name);
+    void update(int id, Category category);
 
     Category getById(int id);
 

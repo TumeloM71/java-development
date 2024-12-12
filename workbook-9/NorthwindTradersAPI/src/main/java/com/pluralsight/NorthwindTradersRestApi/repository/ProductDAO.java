@@ -12,7 +12,7 @@ public interface ProductDAO {
 
     Product getById(int id);
 
-    void updateName(int id, String name);
+    void update(int id, Product product);
 
     List<Product> getAll();
 }

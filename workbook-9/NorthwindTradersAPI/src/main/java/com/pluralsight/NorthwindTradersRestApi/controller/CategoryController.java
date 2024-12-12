@@ -30,16 +30,12 @@ public class CategoryController {
     }
 
     @DeleteMapping("/categories/delete/{id}")
-    public int delete(@PathVariable("id") int id){
+    public void delete(@PathVariable("id") int id){
         categoryDAO.delete(id);
-        return 0;
     }
 
-    @PutMapping("/categories/updatename/id/{id}/name/{name}")
-    public int updateName(@PathVariable("id") int id, @PathVariable("name") String name){
-        System.out.println("In update");
-        categoryDAO.updateName(id, name);
-        System.out.println("After update");
-        return 0;
+    @PutMapping("/categories/update/{id}")
+    public void updateName(@PathVariable("id") int id, @RequestBody Category category){
+        categoryDAO.update(id, category);
     }
 }

@@ -47,17 +47,18 @@ public class CategoryDAOImpl implements CategoryDAO {
         }
     }
 
-    public void updateName(int categoryId, String name){
+    public void update(int categoryId, Category category){
 
         try( Connection connection = dataSource.getConnection();
                 PreparedStatement statement = connection.prepareStatement("""
                         UPDATE northwind.categories
-                        SET CategoryName = ?
+                        SET CategoryName = ?, Description = ?
                         WHERE CategoryId = ?
                         """))
         {
-            statement.setString(1,name);
-            statement.setInt(2,categoryId);
+            statement.setString(1,category.getCategoryName());
+            statement.setString(2, category.getDescription());
+            statement.setInt(3,categoryId);
             System.out.println("Statement set complete");
 
             int rows = statement.executeUpdate();

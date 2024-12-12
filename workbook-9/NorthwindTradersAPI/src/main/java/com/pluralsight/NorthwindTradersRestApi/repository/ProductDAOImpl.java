@@ -48,17 +48,19 @@ public class ProductDAOImpl implements ProductDAO {
         }
     }
 
-    public void updateName(int productId, String name){
+    public void update(int productId, Product product){
 
         try( Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("""
                         UPDATE northwind.products
-                        SET ProductName = ?
+                        SET ProductName = ?, CategoryID = ?, UnitPrice = ?
                         WHERE ProductId = ?
                         """))
         {
-            statement.setString(1,name);
-            statement.setInt(2,productId);
+            statement.setString(1,product.getName());
+            statement.setInt(2,product.getCategoryId());
+            statement.setDouble(3,product.getPrice());
+            statement.setInt(4,productId);
 
             int rows = statement.executeUpdate();
             System.out.println("Rows updated: "+rows);
