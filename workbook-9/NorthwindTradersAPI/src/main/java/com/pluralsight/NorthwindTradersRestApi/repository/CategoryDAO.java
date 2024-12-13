@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CategoryDAO {
 
-    void add(Category c);
+    int add(Category c);
 
     void delete(int categoryId);
 

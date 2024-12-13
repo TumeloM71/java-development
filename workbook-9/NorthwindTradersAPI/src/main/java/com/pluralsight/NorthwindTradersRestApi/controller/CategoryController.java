@@ -25,8 +25,8 @@ public class CategoryController {
 
     @PostMapping("/categories/add")
     public Category add(@RequestBody Category category){
-        categoryDAO.add(category);
-        return category;
+        int key = categoryDAO.add(category);
+        return categoryDAO.getById(key);
     }
 
     @DeleteMapping("/categories/delete/{id}")
@@ -35,7 +35,7 @@ public class CategoryController {
     }
 
     @PutMapping("/categories/update/{id}")
-    public void updateName(@PathVariable("id") int id, @RequestBody Category category){
+    public void update(@PathVariable("id") int id, @RequestBody Category category){
         categoryDAO.update(id, category);
     }
 }

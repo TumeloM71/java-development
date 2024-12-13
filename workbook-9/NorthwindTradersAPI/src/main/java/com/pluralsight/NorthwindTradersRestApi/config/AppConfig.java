@@ -22,14 +22,4 @@ public class AppConfig {
         return basicDataSource;
     }
 
-
-    @Bean
-    public String selectAllStatement(){
-        return """
-                USE northwind;
-                SELECT ProductID, ProductName, CategoryName, UnitPrice FROM products p
-                JOIN categories c ON p.CategoryID = c.CategoryId;
-                """;
-    }
-
 }

@@ -25,8 +25,8 @@ public class ProductsController {
 
     @PostMapping("/products/add")
     public Product addProduct (@RequestBody Product product){
-        productDAO.add(product);
-        return product;
+        int key = productDAO.add(product);
+        return productDAO.getById(key);
     }
 
     @DeleteMapping("/products/delete/{id}")
@@ -35,7 +35,7 @@ public class ProductsController {
     }
 
     @PutMapping("/products/update/{id}")
-    public void updateName(@PathVariable("id") int id, @RequestBody Product product){
+    public void update(@PathVariable("id") int id, @RequestBody Product product){
         productDAO.update(id, product);
     }
 }

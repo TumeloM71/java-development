@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,15 +22,15 @@ public class CategoryDAOImpl implements CategoryDAO {
     }
 
     @Override
-    public void add(Category c){
+    public int add(Category c){
         String sql = """
                 INSERT INTO northwind.categories (CategoryName, Description)
                 VALUES(?, ?)
                 """;
-
+        int key;
         try (
                 Connection connection = dataSource.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql)
+                PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
         )
         {
             statement.setString(1,c.getCategoryName());
@@ -41,10 +38,28 @@ public class CategoryDAOImpl implements CategoryDAO {
 
             int rows = statement.executeUpdate();
             System.out.println("Rows updated "+rows);
+            key = getAddedKey(statement);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        return key;
+    }
+
+    public static int getAddedKey(PreparedStatement statement){
+
+        int key = 0;
+        try (ResultSet keys = statement.getGeneratedKeys()
+        ) {
+            while (keys.next()) {
+                key = keys.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return key;
     }
 
     public void update(int categoryId, Category category){
